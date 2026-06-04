@@ -18,21 +18,23 @@ const navRooms = site.nav.filter(
       <Logo />
     </a>
 
-    <button
-      class="header__toggle"
-      type="button"
-      aria-expanded="false"
-      aria-controls="nav-menu"
-      aria-label="Deschide meniul"
-    >
-      <span class="header__toggle-bar"></span>
-      <span class="header__toggle-bar"></span>
-      <span class="header__toggle-bar"></span>
-    </button>
+    <div class="header__tools">
+      <button
+        class="header__toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="nav-menu"
+        aria-label="Deschide meniul"
+      >
+        <span class="header__toggle-bar"></span>
+        <span class="header__toggle-bar"></span>
+        <span class="header__toggle-bar"></span>
+      </button>
 
-    <div class="header__actions">
-      <SocialLinks variant="icons" />
-      <a class="btn btn--primary header__cta" href="#contact">Cere ofertă</a>
+      <div class="header__actions">
+        <SocialLinks variant="icons" />
+        <a class="btn btn--primary header__cta" href="#contact">Cere ofertă</a>
+      </div>
     </div>
   </div>
 
@@ -77,10 +79,17 @@ const navRooms = site.nav.filter(
   .header__bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
+    gap: 0.75rem;
     padding: 0.6rem 0;
     border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__tools {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    flex-shrink: 0;
   }
 
   .header__brand {
@@ -276,7 +285,7 @@ const navRooms = site.nav.filter(
   }
 
   @media (max-width: 900px) {
-    .header__actions :global(.social--icons) {
+    .header__tools :global(.social--icons) {
       display: none;
     }
   }
@@ -287,8 +296,8 @@ const navRooms = site.nav.filter(
       display: flex;
     }
 
-    .header__bar {
-      gap: 0.5rem;
+    .header__tools {
+      gap: 0.4rem;
     }
 
     .header__nav-wrap {
