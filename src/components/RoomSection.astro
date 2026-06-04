@@ -323,14 +323,16 @@ const galleryFit = id === 'usi' || id === 'baie';
   }
 
   .gallery__trigger--contain img {
+    width: 100%;
+    height: auto;
+    max-height: 22rem;
+    aspect-ratio: auto;
     object-fit: contain;
     background: #f3efe8;
-    aspect-ratio: 3 / 4;
   }
 
   .gallery--fit .gallery__trigger--contain img {
-    aspect-ratio: 4 / 5;
-    max-height: 220px;
+    max-height: 240px;
   }
 
   .gallery--fit .gallery__item:hover .gallery__trigger img {
