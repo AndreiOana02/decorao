@@ -79,6 +79,8 @@ const showCounter = slides.length > 14;
 <style>
   .hero-visual {
     width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
   }
 
   .hero-visual__frame {
@@ -88,7 +90,10 @@ const showCounter = slides.length > 14;
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-lg);
     aspect-ratio: 4 / 3;
-    background: var(--color-text);
+    max-height: min(22rem, 52vh);
+    width: 100%;
+    margin-inline: auto;
+    background: #f3efe8;
     touch-action: pan-y pinch-zoom;
     cursor: grab;
     user-select: none;
@@ -108,7 +113,7 @@ const showCounter = slides.length > 14;
   .hero-visual__slide img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     pointer-events: none;
     -webkit-user-drag: none;
