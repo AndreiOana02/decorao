@@ -50,6 +50,10 @@ npm run build    # generează folderul dist/ pentru hosting
 npm run preview  # verifică build-ul
 ```
 
+## GitHub
+
+Dublu-click pe **`Upload-pe-GitHub.bat`** sau vezi **`GITHUB.md`** pentru pașii de upload.
+
 ## Publicare pe decorao.ro
 
 Încarcă conținutul din **`dist/`** pe hosting-ul domeniului (cPanel, Netlify, Cloudflare Pages etc.). Setează domeniul `decorao.ro` către acel site.
