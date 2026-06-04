@@ -19,7 +19,14 @@ const showCounter = slides.length > 14;
   data-hero-carousel
   data-slides={JSON.stringify(slides)}
 >
-  <div class="hero-visual__frame">
+  <div
+    class="hero-visual__frame"
+    data-hero-frame
+    tabindex="0"
+    role="region"
+    aria-roledescription="carusel"
+    aria-label="Imagini prezentare — glisează stânga/dreapta"
+  >
     <figure class="hero-visual__slide is-active">
       <img
         src={slides[0].src}
@@ -28,9 +35,20 @@ const showCounter = slides.length > 14;
         height="540"
         fetchpriority="high"
         decoding="async"
+        draggable="false"
         data-hero-img
       />
     </figure>
+    {slides.length > 1 && (
+      <>
+        <button type="button" class="hero-visual__nav hero-visual__nav--prev" data-hero-prev aria-label="Imaginea anterioară">
+          ‹
+        </button>
+        <button type="button" class="hero-visual__nav hero-visual__nav--next" data-hero-next aria-label="Imaginea următoare">
+          ›
+        </button>
+      </>
+    )}
     <div class="hero-visual__overlay" aria-hidden="true"></div>
     {showDots && (
       <div class="hero-visual__dots" role="tablist" aria-label="Imagini hero">
@@ -71,6 +89,14 @@ const showCounter = slides.length > 14;
     box-shadow: var(--shadow-lg);
     aspect-ratio: 4 / 3;
     background: var(--color-text);
+    touch-action: none;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .hero-visual__frame.is-dragging {
+    cursor: grabbing;
   }
 
   .hero-visual__slide {
@@ -84,6 +110,38 @@ const showCounter = slides.length > 14;
     height: 100%;
     object-fit: cover;
     display: block;
+    pointer-events: none;
+    -webkit-user-drag: none;
+  }
+
+  .hero-visual__nav {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    transform: translateY(-50%);
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.75rem;
+    line-height: 1;
+    color: #fff;
+    background: rgba(28, 25, 23, 0.5);
+    cursor: pointer;
+    transition: background 0.15s ease;
+  }
+
+  .hero-visual__nav:hover {
+    background: rgba(139, 90, 43, 0.85);
+  }
+
+  .hero-visual__nav--prev {
+    left: 0.75rem;
+  }
+
+  .hero-visual__nav--next {
+    right: 0.75rem;
   }
 
   .hero-visual__overlay {
@@ -152,10 +210,10 @@ const showCounter = slides.length > 14;
 </style>
 
 <script>
-  const root = document.querySelector('[data-hero-carousel]');
-  if (!root) {
-    /* no carousel */
-  } else {
+  function initHeroCarousel() {
+    const root = document.querySelector('[data-hero-carousel]');
+    if (!root || root.hasAttribute('data-hero-ready')) return;
+
     type Slide = { src: string; title: string };
     let slides: Slide[] = [];
     try {
@@ -163,23 +221,31 @@ const showCounter = slides.length > 14;
     } catch {
       slides = [];
     }
+    if (slides.length < 2) return;
 
-    const img = root.querySelector('[data-hero-img]') as HTMLImageElement | null;
+    root.setAttribute('data-hero-ready', '');
+
+    const frame = root.querySelector('[data-hero-frame]') as HTMLElement;
+    const img = root.querySelector('[data-hero-img]') as HTMLImageElement;
     const dots = [...root.querySelectorAll('[data-dot]')];
     const caption = root.querySelector('[data-hero-caption]');
     const counter = root.querySelector('[data-hero-counter]');
+    const btnPrev = root.querySelector('[data-hero-prev]');
+    const btnNext = root.querySelector('[data-hero-next]');
+
     let current = 0;
     let timer: ReturnType<typeof setInterval> | undefined;
+    const SWIPE_PX = 40;
+    let startX = 0;
+    let dragging = false;
 
     function preload(index: number) {
       const s = slides[index];
       if (!s) return;
-      const el = new Image();
-      el.src = s.src;
+      new Image().src = s.src;
     }
 
     function goTo(index: number) {
-      if (!img || slides.length === 0) return;
       current = (index + slides.length) % slides.length;
       const slide = slides[current];
       img.src = slide.src;
@@ -194,23 +260,94 @@ const showCounter = slides.length > 14;
     }
 
     function startAutoplay() {
-      if (slides.length < 2) return;
+      if (timer) clearInterval(timer);
       timer = setInterval(() => goTo(current + 1), 5500);
     }
 
+    function pauseAutoplay() {
+      if (timer) clearInterval(timer);
+      timer = undefined;
+    }
+
+    function onSwipe(deltaX: number) {
+      if (Math.abs(deltaX) < SWIPE_PX) return;
+      goTo(deltaX < 0 ? current + 1 : current - 1);
+    }
+
+    function bump(dir: -1 | 1) {
+      goTo(current + dir);
+      pauseAutoplay();
+      startAutoplay();
+    }
+
+    btnPrev?.addEventListener('click', () => bump(-1));
+    btnNext?.addEventListener('click', () => bump(1));
+
+    frame.addEventListener(
+      'touchstart',
+      (e) => {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        dragging = true;
+        pauseAutoplay();
+      },
+      { passive: true }
+    );
+
+    frame.addEventListener(
+      'touchend',
+      (e) => {
+        if (!dragging) return;
+        dragging = false;
+        const touch = e.changedTouches[0];
+        if (touch) onSwipe(touch.clientX - startX);
+        startAutoplay();
+      },
+      { passive: true }
+    );
+
+    frame.addEventListener('touchcancel', () => {
+      dragging = false;
+      startAutoplay();
+    });
+
+    frame.addEventListener('mousedown', (e) => {
+      if (e.button !== 0) return;
+      dragging = true;
+      startX = e.clientX;
+      frame.classList.add('is-dragging');
+      pauseAutoplay();
+      e.preventDefault();
+    });
+
+    window.addEventListener('mouseup', (e) => {
+      if (!dragging) return;
+      dragging = false;
+      frame.classList.remove('is-dragging');
+      onSwipe(e.clientX - startX);
+      startAutoplay();
+    });
+
+    img.addEventListener('dragstart', (e) => e.preventDefault());
+
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') bump(-1);
+      else if (e.key === 'ArrowRight') bump(1);
+    });
+
     dots.forEach((dot) => {
       dot.addEventListener('click', () => {
-        const i = Number((dot as HTMLElement).dataset.dot);
-        goTo(i);
-        if (timer) clearInterval(timer);
+        goTo(Number((dot as HTMLElement).dataset.dot));
+        pauseAutoplay();
         startAutoplay();
       });
     });
 
-    if (slides.length > 1) {
-      preload(1);
-      goTo(0);
-      startAutoplay();
-    }
+    preload(1);
+    goTo(0);
+    startAutoplay();
   }
+
+  initHeroCarousel();
+  document.addEventListener('astro:page-load', initHeroCarousel);
 </script>

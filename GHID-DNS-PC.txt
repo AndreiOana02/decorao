@@ -1,0 +1,26 @@
+DECORAO — site merge pe telefon, nu pe PC
+============================================
+
+CAUZA: PC-ul rezolva www.decorao.ro catre serverul VECHI (188.34.139.71).
+       Telefonul foloseste DNS corect (Vercel).
+
+SOLUTIE RAPIDA (Windows 11/10)
+--------------------------------
+1. Setari → Retea si internet → Wi-Fi (sau Ethernet) → reteaua ta → Editare la DNS
+2. Manual:
+   DNS preferat:  1.1.1.1
+   DNS alternativ: 8.8.8.8
+3. Salveaza
+4. Win+R → cmd → Enter → scrie: ipconfig /flushdns
+5. Inchide Chrome/Edge complet, redeschide https://www.decorao.ro
+
+SOLUTIE DIN CMD (Administrator)
+---------------------------------
+netsh interface ip set dns "Wi-Fi" static 1.1.1.1
+netsh interface ip add dns "Wi-Fi" 8.8.8.8 index=2
+(ipconfig /flushdns)
+
+(Inlocuieste "Wi-Fi" cu "Ethernet" daca folosesti cablu.)
+
+DUPA FIX: site-ul trebuie sa arate ca pe telefon.
+ROTLD si Vercel sunt configurate corect — nu le schimba.

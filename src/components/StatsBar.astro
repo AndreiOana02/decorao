@@ -2,7 +2,7 @@
 import site from '../data/site.json';
 ---
 
-<div class="stats" role="region" aria-label="Decorao pe scurt">
+<div class="stats" role="region" aria-label="Materiale și zonă de lucru">
   <div class="container container--wide stats__inner">
     {site.stats.map((stat) => (
       <div class="stats__item">
@@ -22,7 +22,7 @@ import site from '../data/site.json';
 
   .stats__inner {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 1.5rem 2rem;
     text-align: center;
   }
@@ -30,18 +30,30 @@ import site from '../data/site.json';
   .stats__value {
     display: block;
     font-family: var(--font-display);
-    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-size: clamp(1.35rem, 2.5vw, 1.85rem);
     font-weight: 400;
     line-height: 1.2;
   }
 
   .stats__label {
     display: block;
-    margin-top: 0.25rem;
-    font-size: 0.82rem;
+    margin-top: 0.35rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-    opacity: 0.88;
+    opacity: 0.9;
+  }
+
+  @media (max-width: 800px) {
+    .stats__inner {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats__inner {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

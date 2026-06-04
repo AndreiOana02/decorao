@@ -1,17 +1,17 @@
 ---
 import site from '../data/site.json';
 
-const { why } = site;
+const { materials } = site;
 ---
 
-<section class="section why" id="de-ce" aria-label={why.title}>
+<section class="section materials" id="materiale" aria-label={materials.title}>
   <div class="container container--wide">
-    <figure class="why__showcase">
+    <figure class="materials__showcase">
       <img
-        src={why.showcaseImage}
-        alt={`${why.title} — ${why.intro}`}
+        src={materials.collageImage}
+        alt={`${materials.title} — ${materials.intro} ${materials.intro2}`}
         width="1200"
-        height="800"
+        height="900"
         loading="lazy"
         decoding="async"
       />
@@ -20,12 +20,13 @@ const { why } = site;
 </section>
 
 <style>
-  .why {
+  .materials {
     padding-top: 2rem;
     padding-bottom: 2.5rem;
+    background: linear-gradient(180deg, var(--color-bg) 0%, #f3ede5 100%);
   }
 
-  .why__showcase {
+  .materials__showcase {
     margin: 0;
     border-radius: calc(var(--radius) + 6px);
     overflow: hidden;
@@ -35,7 +36,7 @@ const { why } = site;
     line-height: 0;
   }
 
-  .why__showcase img {
+  .materials__showcase img {
     width: 100%;
     height: auto;
     display: block;

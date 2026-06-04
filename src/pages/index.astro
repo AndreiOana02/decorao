@@ -6,8 +6,6 @@ import Header from '../components/Header.astro';
 
 import Footer from '../components/Footer.astro';
 
-import Logo from '../components/Logo.astro';
-
 import RoomSection from '../components/RoomSection.astro';
 
 import SocialLinks from '../components/SocialLinks.astro';
@@ -15,6 +13,7 @@ import SocialLinks from '../components/SocialLinks.astro';
 import StatsBar from '../components/StatsBar.astro';
 
 import WhyDecorao from '../components/WhyDecorao.astro';
+import MaterialsShowcase from '../components/MaterialsShowcase.astro';
 import HeroVisual from '../components/HeroVisual.astro';
 
 import site from '../data/site.json';
@@ -48,44 +47,22 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
       <div class="container container--wide hero__grid">
 
-        <div class="hero__content">
+        <div
+          class="hero__panel"
+          style={`--hero-panel-bg: url('${site.hero.panelImage}')`}
+        >
 
           <p class="hero__eyebrow">Fabrică de mobilă · Dâmbovița</p>
 
-          <Logo class="hero__logo" />
+          <h1 class="hero__title">
+            <span class="hero__brand">{site.brand}</span>
+          </h1>
 
-          <p class="hero__lead">{site.tagline}</p>
-
-          <ul class="hero__badges">
-
-            {site.highlights.map((h) => (
-
-              <li>{h}</li>
-
-            ))}
-
-          </ul>
-
-          <div class="hero__rooms">
-
-            {site.rooms.map((room) => (
-
-              <a class="hero__room-link" href={`#${room.id}`}>
-
-                {room.label}
-
-              </a>
-
-            ))}
-
-          </div>
+          <p class="hero__subtitle">{site.tagline}</p>
 
           <div class="hero__actions">
-
             <a class="btn btn--primary" href="#contact">Solicită ofertă</a>
-
             <a class="btn btn--ghost" href="#bucatarii">Vezi lucrările</a>
-
           </div>
 
         </div>
@@ -130,35 +107,7 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
 
 
-    <section class="section" id="materiale">
-
-      <div class="container container--wide">
-
-        <p class="section__eyebrow">Ce folosim</p>
-
-        <h2 class="section__title">{site.materials.title}</h2>
-
-        <p class="materials__intro">{site.materials.intro}</p>
-
-        <div class="cards">
-
-          {site.materials.items.map((item) => (
-
-            <article class="card">
-
-              <h3>{item.title}</h3>
-
-              <p>{item.description}</p>
-
-            </article>
-
-          ))}
-
-        </div>
-
-      </div>
-
-    </section>
+    <MaterialsShowcase />
 
 
 
@@ -294,7 +243,7 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
     position: relative;
 
-    padding: 2.5rem 0 4rem;
+    padding: 2rem 0 3.5rem;
 
     overflow: hidden;
 
@@ -330,11 +279,99 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
     display: grid;
 
-    grid-template-columns: minmax(320px, 1fr) minmax(380px, 1.15fr);
+    grid-template-columns: minmax(340px, 1fr) minmax(360px, 1.1fr);
 
-    gap: clamp(2rem, 4vw, 4rem);
+    gap: clamp(1.75rem, 3vw, 3rem);
 
-    align-items: center;
+    align-items: stretch;
+
+  }
+
+
+
+  .hero__panel {
+
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding: clamp(1.5rem, 2.5vw, 2.25rem);
+
+    overflow: hidden;
+
+    background:
+      linear-gradient(145deg, #f8f2ea 0%, #efe4d6 42%, #e6d9c8 100%);
+
+    border: 1px solid rgba(139, 90, 43, 0.22);
+
+    border-radius: calc(var(--radius) + 8px);
+
+    box-shadow:
+      var(--shadow),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+
+  }
+
+
+
+  .hero__panel::before {
+
+    content: '';
+
+    position: absolute;
+
+    inset: 0;
+
+    background-image: var(--hero-panel-bg);
+
+    background-size: cover;
+
+    background-position: 78% center;
+
+    background-repeat: no-repeat;
+
+    opacity: 0.2;
+
+    pointer-events: none;
+
+  }
+
+
+
+  .hero__panel::after {
+
+    content: '';
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+      linear-gradient(
+        105deg,
+        rgba(248, 242, 234, 0.94) 0%,
+        rgba(239, 228, 214, 0.82) 42%,
+        rgba(230, 217, 200, 0.5) 68%,
+        rgba(230, 217, 200, 0.12) 100%
+      ),
+
+      radial-gradient(ellipse 90% 80% at 100% 0%, rgba(196, 165, 116, 0.28), transparent 55%);
+
+    pointer-events: none;
+
+  }
+
+
+
+  .hero__panel > * {
+
+    position: relative;
+
+    z-index: 1;
 
   }
 
@@ -342,7 +379,7 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
   .hero__eyebrow {
 
-    margin: 0 0 0.75rem;
+    margin: 0 0 0.65rem;
 
     font-size: 0.78rem;
 
@@ -358,115 +395,47 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
 
 
-  .hero__logo {
+  .hero__title {
 
-    width: fit-content;
+    margin: 0 0 0.5rem;
 
-    max-width: 100%;
-
-    margin-bottom: 1rem;
+    line-height: 1.15;
 
   }
 
 
 
-  .hero__lead {
+  .hero__brand {
 
-    margin: 0 0 1.25rem;
+    display: block;
 
-    font-size: 1.2rem;
+    font-family: var(--font-display);
+
+    font-size: clamp(2rem, 4.5vw, 2.85rem);
+
+    font-weight: 500;
+
+    color: var(--color-text);
+
+    letter-spacing: 0.02em;
+
+  }
+
+
+
+  .hero__subtitle {
+
+    margin: 0 0 1.35rem;
+
+    max-width: 36ch;
+
+    font-size: clamp(1rem, 1.8vw, 1.15rem);
+
+    font-weight: 400;
 
     color: var(--color-muted);
-
-    max-width: 38ch;
 
     line-height: 1.5;
-
-  }
-
-
-
-  .hero__badges {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 0.5rem;
-
-    list-style: none;
-
-    margin: 0 0 1.25rem;
-
-    padding: 0;
-
-  }
-
-
-
-  .hero__badges li {
-
-    padding: 0.4rem 0.9rem;
-
-    background: var(--color-surface);
-
-    border: 1px solid var(--color-border);
-
-    border-radius: 999px;
-
-    font-size: 0.88rem;
-
-    color: var(--color-muted);
-
-    box-shadow: var(--shadow-sm);
-
-  }
-
-
-
-  .hero__rooms {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 0.5rem;
-
-    margin-bottom: 1.75rem;
-
-  }
-
-
-
-  .hero__room-link {
-
-    padding: 0.4rem 0.9rem;
-
-    background: var(--color-accent);
-
-    color: #fff;
-
-    text-decoration: none;
-
-    border-radius: 999px;
-
-    font-size: 0.85rem;
-
-    font-weight: 600;
-
-    transition: background 0.15s ease, transform 0.15s ease;
-
-  }
-
-
-
-  .hero__room-link:hover {
-
-    background: var(--color-accent-dark);
-
-    color: #fff;
-
-    transform: translateY(-1px);
 
   }
 
@@ -502,93 +471,13 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
   .about__p {
 
-    max-width: 62ch;
-
     color: var(--color-muted);
 
-    margin: 0 0 1rem;
+    margin: 0 0 0.85rem;
 
-    font-size: 1.08rem;
+    font-size: 1.05rem;
 
-  }
-
-
-
-  .materials__intro {
-
-    max-width: 58ch;
-
-    color: var(--color-muted);
-
-    margin: 0 0 1.5rem;
-
-  }
-
-
-
-  .cards {
-
-    display: grid;
-
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-
-    gap: 1.25rem;
-
-  }
-
-
-
-  .card {
-
-    padding: 1.5rem;
-
-    background: var(--color-surface);
-
-    border: 1px solid var(--color-border);
-
-    border-radius: var(--radius);
-
-    box-shadow: var(--shadow-sm);
-
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-
-  }
-
-
-
-  .card:hover {
-
-    transform: translateY(-3px);
-
-    box-shadow: var(--shadow);
-
-    border-color: rgba(139, 90, 43, 0.2);
-
-  }
-
-
-
-  .card h3 {
-
-    margin: 0 0 0.5rem;
-
-    font-family: var(--font-display);
-
-    font-weight: 500;
-
-    font-size: 1.35rem;
-
-  }
-
-
-
-  .card p {
-
-    margin: 0;
-
-    color: var(--color-muted);
-
-    font-size: 0.98rem;
+    line-height: 1.5;
 
   }
 
@@ -725,6 +614,8 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
     }
 
   }
+
+
 
 </style>
 
