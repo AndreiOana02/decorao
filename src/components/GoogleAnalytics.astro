@@ -11,16 +11,13 @@ const enabled = import.meta.env.PROD && /^G-[A-Z0-9]+$/i.test(gaId);
 {enabled && (
   <>
     <div class="cookie-banner" id="cookie-consent" role="dialog" aria-label="Preferințe cookie">
-      <p>
-        Folosim cookie-uri de analiză (Google Analytics) ca să vedem câți vizitatori avem — fără nume
-        sau date personale. Poți accepta sau refuza.
-      </p>
+      <p>Acest site utilizează cookie-uri.</p>
       <div class="cookie-banner__actions">
-        <button type="button" class="cookie-banner__btn cookie-banner__btn--ghost" id="cookie-reject">
-          Refuz
-        </button>
         <button type="button" class="cookie-banner__btn cookie-banner__btn--primary" id="cookie-accept">
           Accept
+        </button>
+        <button type="button" class="cookie-banner__btn cookie-banner__btn--ghost" id="cookie-reject">
+          Refuz
         </button>
       </div>
     </div>

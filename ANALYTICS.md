@@ -35,7 +35,7 @@ Variabila din Vercel are prioritate față de `site.json`.
 
 ## 4. Cookie-uri
 
-Site-ul afișează un mesaj scurt; Google Analytics pornește doar dacă vizitatorul apasă **Accept** (conform practicii UE).
+Banner discret; statisticile pornesc doar dacă vizitatorul apasă **Accept**.
 
 ## 5. Localhost
 
