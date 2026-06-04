@@ -1,0 +1,811 @@
+---
+
+import Layout from '../layouts/Layout.astro';
+
+import Header from '../components/Header.astro';
+
+import Footer from '../components/Footer.astro';
+
+import Logo from '../components/Logo.astro';
+
+import RoomSection from '../components/RoomSection.astro';
+
+import SocialLinks from '../components/SocialLinks.astro';
+
+import StatsBar from '../components/StatsBar.astro';
+
+import WhyDecorao from '../components/WhyDecorao.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+
+import site from '../data/site.json';
+
+import { getGalerieByRoom, getHeroSlides } from '../lib/galerie';
+
+
+
+const tel = site.phoneTel ?? site.phone.replace(/\s/g, '');
+
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapsQuery ?? site.address)}`;
+
+const galerieByRoom = getGalerieByRoom();
+const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
+
+---
+
+
+
+<Layout>
+
+  <Header />
+
+
+
+  <main>
+
+    <section class="hero" id="acasa">
+
+      <div class="hero__bg" aria-hidden="true"></div>
+
+      <div class="container container--wide hero__grid">
+
+        <div class="hero__content">
+
+          <p class="hero__eyebrow">Fabrică de mobilă · Dâmbovița</p>
+
+          <Logo class="hero__logo" />
+
+          <p class="hero__lead">{site.tagline}</p>
+
+          <ul class="hero__badges">
+
+            {site.highlights.map((h) => (
+
+              <li>{h}</li>
+
+            ))}
+
+          </ul>
+
+          <div class="hero__rooms">
+
+            {site.rooms.map((room) => (
+
+              <a class="hero__room-link" href={`#${room.id}`}>
+
+                {room.label}
+
+              </a>
+
+            ))}
+
+          </div>
+
+          <div class="hero__actions">
+
+            <a class="btn btn--primary" href="#contact">Solicită ofertă</a>
+
+            <a class="btn btn--ghost" href="#bucatarii">Vezi lucrările</a>
+
+          </div>
+
+        </div>
+
+        <div class="hero__aside">
+
+          <HeroVisual images={heroSlides} />
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <StatsBar />
+
+
+
+    <section class="section section--alt" id="despre">
+
+      <div class="container container--wide about">
+
+        <p class="section__eyebrow">Despre noi</p>
+
+        <h2 class="section__title">{site.about.title}</h2>
+
+        {site.about.paragraphs.map((p) => (
+
+          <p class="about__p">{p}</p>
+
+        ))}
+
+      </div>
+
+    </section>
+
+
+
+    <WhyDecorao />
+
+
+
+    <section class="section" id="materiale">
+
+      <div class="container container--wide">
+
+        <p class="section__eyebrow">Ce folosim</p>
+
+        <h2 class="section__title">{site.materials.title}</h2>
+
+        <p class="materials__intro">{site.materials.intro}</p>
+
+        <div class="cards">
+
+          {site.materials.items.map((item) => (
+
+            <article class="card">
+
+              <h3>{item.title}</h3>
+
+              <p>{item.description}</p>
+
+            </article>
+
+          ))}
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    {site.rooms.map((room, i) => (
+
+      <RoomSection
+
+        id={room.id}
+
+        title={room.title}
+
+        intro={room.intro}
+
+        features={room.features}
+
+        images={galerieByRoom[room.id as keyof typeof galerieByRoom] ?? []}
+
+        altBg={i % 2 === 0}
+
+      />
+
+    ))}
+
+
+
+    <section class="section contact" id="contact">
+
+      <div class="container container--wide contact__grid">
+
+        <div>
+
+          <p class="section__eyebrow">Contact</p>
+
+          <h2 class="section__title">Hai să discutăm proiectul tău</h2>
+
+          <p>
+
+            Sună-ne, scrie pe e-mail sau pe rețelele sociale — cu dimensiunile spațiului și camera
+
+            dorită revenim cu ofertă și termen estimat.
+
+          </p>
+
+          <SocialLinks variant="light" />
+
+        </div>
+
+        <address class="contact__card">
+
+          <dl>
+
+            <div>
+
+              <dt>Telefon</dt>
+
+              <dd><a href={`tel:${tel}`}>{site.phone}</a></dd>
+
+            </div>
+
+            <div>
+
+              <dt>E-mail</dt>
+
+              <dd><a href={`mailto:${site.email}`}>{site.email}</a></dd>
+
+            </div>
+
+            <div>
+
+              <dt>Adresă</dt>
+
+              <dd>
+
+                <a href={mapsUrl} target="_blank" rel="noopener noreferrer">{site.address}</a>
+
+              </dd>
+
+            </div>
+
+            <div>
+
+              <dt>Program</dt>
+
+              <dd>{site.hours}</dd>
+
+            </div>
+
+          </dl>
+
+          <div class="contact__actions">
+
+            <a class="btn btn--primary contact__btn" href={`tel:${tel}`}>Sună acum</a>
+
+            <a class="btn btn--ghost contact__btn" href={`mailto:${site.email}?subject=Ofertă mobilă Decorao`}>
+
+              Trimite e-mail
+
+            </a>
+
+          </div>
+
+        </address>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <Footer />
+
+
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagine mărită" hidden>
+
+    <button type="button" class="lightbox__close" aria-label="Închide">×</button>
+
+    <img class="lightbox__img" src="" alt="" />
+
+    <p class="lightbox__caption"></p>
+
+  </div>
+
+</Layout>
+
+
+
+<style>
+
+  .hero {
+
+    position: relative;
+
+    padding: 2.5rem 0 4rem;
+
+    overflow: hidden;
+
+  }
+
+
+
+  .hero__bg {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+
+      linear-gradient(155deg, rgba(247, 243, 237, 0.97) 0%, rgba(247, 243, 237, 0.85) 40%, transparent 70%),
+
+      radial-gradient(ellipse 90% 60% at 80% 20%, rgba(139, 90, 43, 0.08), transparent 55%),
+
+      linear-gradient(160deg, #ebe4d8 0%, var(--color-bg) 50%);
+
+    z-index: 0;
+
+  }
+
+
+
+  .hero__grid {
+
+    position: relative;
+
+    z-index: 1;
+
+    display: grid;
+
+    grid-template-columns: minmax(320px, 1fr) minmax(380px, 1.15fr);
+
+    gap: clamp(2rem, 4vw, 4rem);
+
+    align-items: center;
+
+  }
+
+
+
+  .hero__eyebrow {
+
+    margin: 0 0 0.75rem;
+
+    font-size: 0.78rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.14em;
+
+    text-transform: uppercase;
+
+    color: var(--color-accent);
+
+  }
+
+
+
+  .hero__logo {
+
+    width: fit-content;
+
+    max-width: 100%;
+
+    margin-bottom: 1rem;
+
+  }
+
+
+
+  .hero__lead {
+
+    margin: 0 0 1.25rem;
+
+    font-size: 1.2rem;
+
+    color: var(--color-muted);
+
+    max-width: 38ch;
+
+    line-height: 1.5;
+
+  }
+
+
+
+  .hero__badges {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.5rem;
+
+    list-style: none;
+
+    margin: 0 0 1.25rem;
+
+    padding: 0;
+
+  }
+
+
+
+  .hero__badges li {
+
+    padding: 0.4rem 0.9rem;
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    border-radius: 999px;
+
+    font-size: 0.88rem;
+
+    color: var(--color-muted);
+
+    box-shadow: var(--shadow-sm);
+
+  }
+
+
+
+  .hero__rooms {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.5rem;
+
+    margin-bottom: 1.75rem;
+
+  }
+
+
+
+  .hero__room-link {
+
+    padding: 0.4rem 0.9rem;
+
+    background: var(--color-accent);
+
+    color: #fff;
+
+    text-decoration: none;
+
+    border-radius: 999px;
+
+    font-size: 0.85rem;
+
+    font-weight: 600;
+
+    transition: background 0.15s ease, transform 0.15s ease;
+
+  }
+
+
+
+  .hero__room-link:hover {
+
+    background: var(--color-accent-dark);
+
+    color: #fff;
+
+    transform: translateY(-1px);
+
+  }
+
+
+
+  .hero__actions {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.75rem;
+
+  }
+
+
+
+  .hero__aside {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 0;
+
+    max-width: 100%;
+
+  }
+
+
+
+  .about__p {
+
+    max-width: 62ch;
+
+    color: var(--color-muted);
+
+    margin: 0 0 1rem;
+
+    font-size: 1.08rem;
+
+  }
+
+
+
+  .materials__intro {
+
+    max-width: 58ch;
+
+    color: var(--color-muted);
+
+    margin: 0 0 1.5rem;
+
+  }
+
+
+
+  .cards {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 1.25rem;
+
+  }
+
+
+
+  .card {
+
+    padding: 1.5rem;
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow-sm);
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  }
+
+
+
+  .card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow: var(--shadow);
+
+    border-color: rgba(139, 90, 43, 0.2);
+
+  }
+
+
+
+  .card h3 {
+
+    margin: 0 0 0.5rem;
+
+    font-family: var(--font-display);
+
+    font-weight: 500;
+
+    font-size: 1.35rem;
+
+  }
+
+
+
+  .card p {
+
+    margin: 0;
+
+    color: var(--color-muted);
+
+    font-size: 0.98rem;
+
+  }
+
+
+
+  .contact {
+
+    background: linear-gradient(180deg, var(--color-bg) 0%, #ebe4d8 100%);
+
+  }
+
+
+
+  .contact :global(.social) {
+
+    margin-top: 1.25rem;
+
+  }
+
+
+
+  .contact__actions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.65rem;
+
+  }
+
+
+
+  .contact__grid {
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 2.5rem;
+
+    align-items: start;
+
+  }
+
+
+
+  .contact__card {
+
+    font-style: normal;
+
+    padding: 1.75rem;
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    border-radius: var(--radius);
+
+    box-shadow: var(--shadow);
+
+  }
+
+
+
+  .contact__card dl {
+
+    margin: 0 0 1.5rem;
+
+  }
+
+
+
+  .contact__card div {
+
+    margin-bottom: 1rem;
+
+  }
+
+
+
+  .contact__card dt {
+
+    font-size: 0.75rem;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.08em;
+
+    color: var(--color-muted);
+
+    margin-bottom: 0.2rem;
+
+  }
+
+
+
+  .contact__card dd {
+
+    margin: 0;
+
+    font-size: 1.05rem;
+
+  }
+
+
+
+  .contact__btn {
+
+    width: 100%;
+
+    text-align: center;
+
+  }
+
+
+
+  @media (max-width: 960px) {
+
+    .hero__grid,
+
+    .contact__grid {
+
+      grid-template-columns: 1fr;
+
+    }
+
+
+
+    .hero__aside {
+
+      order: -1;
+
+    }
+
+  }
+
+</style>
+
+
+
+<script>
+
+  const lightbox = document.getElementById('lightbox');
+
+  const lbImg = lightbox?.querySelector('.lightbox__img') as HTMLImageElement | null;
+
+  const lbCap = lightbox?.querySelector('.lightbox__caption');
+
+  const lbClose = lightbox?.querySelector('.lightbox__close');
+
+
+
+  function openLightbox(src: string, alt: string) {
+
+    if (!lightbox || !lbImg) return;
+
+    lbImg.src = src;
+
+    lbImg.alt = alt;
+
+    if (lbCap) lbCap.textContent = alt;
+
+    lightbox.removeAttribute('hidden');
+
+    lightbox.classList.add('is-open');
+
+    document.body.style.overflow = 'hidden';
+
+  }
+
+
+
+  function closeLightbox() {
+
+    if (!lightbox) return;
+
+    lightbox.classList.remove('is-open');
+
+    lightbox.setAttribute('hidden', '');
+
+    document.body.style.overflow = '';
+
+  }
+
+
+
+  document.querySelectorAll('[data-lightbox]').forEach((btn) => {
+
+    btn.addEventListener('click', () => {
+
+      const src = (btn as HTMLElement).dataset.src;
+
+      const alt = (btn as HTMLElement).dataset.alt ?? '';
+
+      if (src) openLightbox(src, alt);
+
+    });
+
+  });
+
+
+
+  lbClose?.addEventListener('click', closeLightbox);
+
+  lightbox?.addEventListener('click', (e) => {
+
+    if (e.target === lightbox) closeLightbox();
+
+  });
+
+  document.addEventListener('keydown', (e) => {
+
+    if (e.key === 'Escape' && lightbox?.classList.contains('is-open')) closeLightbox();
+
+  });
+
+</script>
+
+

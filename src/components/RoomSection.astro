@@ -1,0 +1,313 @@
+---
+
+import type { GalerieItem } from '../lib/galerie';
+
+
+
+interface Props {
+
+  id: string;
+
+  title: string;
+
+  intro: string;
+
+  features: string[];
+
+  images: GalerieItem[];
+
+  altBg?: boolean;
+
+}
+
+
+
+const { id, title, intro, features, images, altBg = false } = Astro.props;
+const galleryFit = id === 'usi' || id === 'baie';
+
+---
+
+
+
+<section class:list={['section', 'room', { 'section--alt': altBg }]} id={id}>
+
+  <div class="container container--wide">
+
+    <p class="section__eyebrow">Mobilă la comandă</p>
+
+    <h2 class="section__title">{title}</h2>
+
+    <p class="room__intro">{intro}</p>
+
+    <ul class="room__features">
+
+      {features.map((f) => (
+
+        <li>{f}</li>
+
+      ))}
+
+    </ul>
+
+
+
+    {images.length > 0 ? (
+
+      <div class:list={['gallery', { 'gallery--fit': galleryFit }]}>
+
+        {images.map((item) => (
+
+          <figure class="gallery__item">
+
+            <button
+              type="button"
+              class:list={[
+                'gallery__trigger',
+                { 'gallery__trigger--contain': item.fit === 'contain' || galleryFit },
+              ]}
+              data-lightbox
+              data-src={item.src}
+              data-alt={item.title}
+              aria-label={`Mărește: ${item.title}`}
+            >
+              <img src={item.src} alt={item.title} loading="lazy" width="480" height="360" />
+            </button>
+
+            <figcaption>{item.title}</figcaption>
+
+          </figure>
+
+        ))}
+
+      </div>
+
+    ) : (
+
+      <div class="gallery-empty">
+
+        <p>
+
+          Poze pentru <strong>{title}</strong>: adaugă imagini în
+
+          <code>public/galerie/{id}/</code>
+
+        </p>
+
+      </div>
+
+    )}
+
+  </div>
+
+</section>
+
+
+
+<style>
+
+  .room__intro {
+
+    max-width: 58ch;
+
+    color: var(--color-muted);
+
+    margin: 0 0 1.25rem;
+
+  }
+
+
+
+  .room__features {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+
+    gap: 0.5rem 1.5rem;
+
+    list-style: none;
+
+    margin: 0 0 2rem;
+
+    padding: 0;
+
+  }
+
+
+
+  .room__features li {
+
+    position: relative;
+
+    padding-left: 1.25rem;
+
+    color: var(--color-text);
+
+    font-size: 0.98rem;
+
+  }
+
+
+
+  .room__features li::before {
+
+    content: '';
+
+    position: absolute;
+
+    left: 0;
+
+    top: 0.55em;
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: var(--color-accent);
+
+  }
+
+
+
+  .gallery {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fill, minmax(180px, 240px));
+
+    gap: 1.25rem;
+
+    justify-content: start;
+
+  }
+
+
+
+  .gallery__item {
+
+    margin: 0;
+
+    border-radius: var(--radius);
+
+    overflow: hidden;
+
+    background: var(--color-surface);
+
+    border: 1px solid var(--color-border);
+
+    box-shadow: var(--shadow-sm);
+
+    transition: box-shadow 0.2s ease;
+
+  }
+
+
+
+  .gallery__item:hover {
+
+    box-shadow: var(--shadow);
+
+  }
+
+
+
+  .gallery__trigger {
+
+    position: relative;
+
+    display: block;
+
+    width: 100%;
+
+    padding: 0;
+
+    border: none;
+
+    background: none;
+
+    cursor: zoom-in;
+
+  }
+
+
+
+  .gallery__trigger img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .gallery--fit {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 185px));
+    gap: 1rem;
+  }
+
+  .gallery--fit .gallery__item {
+    border-radius: 10px;
+  }
+
+  .gallery__trigger--contain img {
+    object-fit: contain;
+    background: #f3efe8;
+    aspect-ratio: 3 / 4;
+  }
+
+  .gallery--fit .gallery__trigger--contain img {
+    aspect-ratio: 4 / 5;
+    min-height: 200px;
+  }
+
+  .gallery--fit .gallery__item:hover .gallery__trigger img {
+    transform: none;
+  }
+
+
+
+  .gallery__item:hover .gallery__trigger img {
+
+    transform: scale(1.02);
+
+  }
+
+
+
+  .gallery__item figcaption {
+
+    padding: 0.6rem 0.75rem;
+
+    font-size: 0.82rem;
+
+    color: var(--color-muted);
+
+  }
+
+
+
+  .gallery-empty {
+
+    padding: 1.5rem;
+
+    border: 2px dashed var(--color-border);
+
+    border-radius: var(--radius);
+
+    color: var(--color-muted);
+
+    font-size: 0.95rem;
+
+  }
+
+
+
+  .gallery-empty code {
+
+    color: var(--color-accent-dark);
+
+  }
+
+</style>
+
+

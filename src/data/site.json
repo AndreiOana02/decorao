@@ -1,0 +1,183 @@
+{
+  "brand": "Decorao",
+  "tagline": "Mobilă la comandă — Vulcana-Pandele, Dâmbovița",
+  "domain": "decorao.ro",
+  "phone": "0726 051 045",
+  "phoneTel": "+40726051045",
+  "email": "ciocoiurebeca@yahoo.com",
+  "address": "Strada Vasile Ciocoiu nr. 9, Vulcana-Pandele, județul Dâmbovița",
+  "mapsQuery": "Strada Vasile Ciocoiu 9, Vulcana-Pandele, Dambovita, Romania",
+  "hours": "Luni–Vineri: 08:00–17:00",
+  "nav": [
+    { "id": "acasa", "label": "Acasă" },
+    { "id": "despre", "label": "Despre" },
+    { "id": "materiale", "label": "Materiale" },
+    { "id": "bucatarii", "label": "Bucătării" },
+    { "id": "dormitor", "label": "Dormitor" },
+    { "id": "baie", "label": "Baie" },
+    { "id": "living", "label": "Living" },
+    { "id": "usi", "label": "Uși" },
+    { "id": "scari", "label": "Scări" },
+    { "id": "contact", "label": "Contact" }
+  ],
+  "social": [
+    {
+      "id": "facebook",
+      "label": "Facebook",
+      "url": "https://www.facebook.com/profile.php?id=100054293540491"
+    },
+    {
+      "id": "instagram",
+      "label": "Instagram",
+      "url": "https://www.instagram.com/decorao.ro/"
+    },
+    {
+      "id": "tiktok",
+      "label": "TikTok",
+      "url": "https://www.tiktok.com/@decorao.ro"
+    }
+  ],
+  "materials": {
+    "title": "Materiale & finisaje",
+    "intro": "MDF vopsit și PAL Egger pentru corpuri și fronturi. Lemn masiv pentru blaturi, trepte, uși, bucătării, dormitoare, mână curentă și piese de mobilier la comandă. Uși interioare din MDF vopsit sau lemn masiv.",
+    "items": [
+      {
+        "title": "MDF vopsit & PAL Egger",
+        "description": "Corpuri, fronturi și rafturi — MDF vopsit sau PAL Egger. Mobilier de baie din MDF vopsit, tratat antiumiditate."
+      },
+      {
+        "title": "Lemn masiv",
+        "description": "Blaturi, trepte și contratrepte, uși, bucătării, dormitoare, mână curentă, living și accente — lemn masiv, finisaje durabile."
+      },
+      {
+        "title": "Blaturi",
+        "description": "Blaturi din lemn masiv de stejar sau blat premium Egger — după proiect."
+      },
+      {
+        "title": "Uși interioare",
+        "description": "Uși la comandă din MDF vopsit sau lemn masiv — culori, modele și feronerie la alegere."
+      },
+      {
+        "title": "Scări interioare",
+        "description": "Trepte și contratrepte din lemn masiv, mână curentă din lemn masiv — proiect și montaj."
+      }
+    ]
+  },
+  "about": {
+    "title": "Fabrică de mobilă în Vulcana-Pandele",
+    "paragraphs": [
+      "Decorao produce mobilă la comandă — bucătării, dormitoare, băi, livinguri, uși interioare și scări.",
+      "Lucrăm cu MDF vopsit și PAL Egger pentru corpuri și uși, lemn masiv de stejar pentru blaturi, lemn masiv pentru scări, plus montaj la locație în Dâmbovița și împrejurimi."
+    ]
+  },
+  "rooms": [
+    {
+      "id": "bucatarii",
+      "label": "Bucătării",
+      "title": "Bucătării la comandă",
+      "intro": "Corpuri din MDF vopsit sau PAL Egger, fronturi la alegere și blaturi din lemn masiv de stejar sau premium Egger.",
+      "features": [
+        "Corpuri MDF vopsit / PAL Egger",
+        "Blaturi lemn masiv de stejar sau premium Egger",
+        "Layout în L, U, linie sau cu insulă",
+        "Iluminare LED"
+      ]
+    },
+    {
+      "id": "dormitor",
+      "label": "Dormitor",
+      "title": "Dormitor & dressing",
+      "intro": "Dulapuri cu uși batante, culisante sau walk-in, paturi cu sertare, noptiere și dressing-uri pe toată înălțimea peretelui.",
+      "features": [
+        "Corpuri MDF vopsit sau PAL Egger",
+        "Accente din lemn masiv la cerere",
+        "Dressing walk-in sau cu uși glisante",
+        "Organizare: sertare, pantofare, suporturi"
+      ]
+    },
+    {
+      "id": "baie",
+      "label": "Baie",
+      "title": "Mobilier baie",
+      "intro": "Mobilă de baie din MDF vopsit, tratat antiumiditate, sau lemn masiv tratat împotriva umidității — finisaje potrivite mediului umed.",
+      "features": [
+        "MDF vopsit, tratat antiumiditate",
+        "Lemn masiv, tratat împotriva umidității",
+        "Suspendate sau pe picior",
+        "Oglinzi cu dulap și iluminare",
+        "Spații pentru mașina de spălat (la cerere)"
+      ]
+    },
+    {
+      "id": "living",
+      "label": "Living",
+      "title": "Living",
+      "intro": "Biblioteci, pereți TV, măsuțe, vitrine și comode — MDF vopsit sau lemn masiv, după proiect.",
+      "features": [
+        "Perete TV cu cabluri ascunse",
+        "Biblioteci modulare sau pe tot peretele",
+        "Vitrine, comode și măsuțe",
+        "Lemn masiv pentru piese de accent"
+      ]
+    },
+    {
+      "id": "usi",
+      "label": "Uși interioare",
+      "title": "Uși interioare la comandă",
+      "intro": "Uși interioare din MDF vopsit sau lemn masiv — finisaj mat sau lucios, culori la alegere, feronerie și tocaje adaptate șantierului.",
+      "features": [
+        "MDF vopsit sau lemn masiv",
+        "Uși culisante, batante sau cu geam",
+        "Dimensiuni la comandă pentru fiecare încăpere",
+        "Gamă largă de culori și texturi",
+        "Montaj și reglaje la locație"
+      ]
+    },
+    {
+      "id": "scari",
+      "label": "Scări",
+      "title": "Scări interioare",
+      "intro": "Scări interioare la comandă: trepte și contratrepte din lemn masiv, mână curentă din lemn masiv — integrate în stilul casei.",
+      "features": [
+        "Trepte și contratrepte din lemn masiv",
+        "Mână curentă din lemn masiv (la cerere)",
+        "Finisaj lac, ulei sau vopsea la alegere",
+        "Proiectare pe șantier și montaj"
+      ]
+    }
+  ],
+  "highlights": [
+    "MDF vopsit & PAL Egger",
+    "Uși interioare",
+    "Scări lemn masiv",
+    "Vulcana-Pandele"
+  ],
+  "stats": [
+    { "value": "7+", "label": "Categorii produse" },
+    { "value": "MDF vopsit", "label": "PAL Egger & lemn" },
+    { "value": "100%", "label": "La comandă" },
+    { "value": "Dâmbovița", "label": "Montaj local" }
+  ],
+  "why": {
+    "title": "De ce Decorao",
+    "intro": "Fabrică locală, materiale alese și montaj pe șantier — de la măsurători până la finisaj.",
+    "items": [
+      {
+        "title": "Proiect personalizat",
+        "description": "Mobilă dimensionată exact pe spațiul tău — bucătării în L sau U, dressing walk-in, uși și scări integrate."
+      },
+      {
+        "title": "Materiale premium",
+        "description": "MDF vopsit și PAL Egger pentru corpuri și uși, lemn masiv de stejar pentru blaturi, lemn masiv pentru scări."
+      },
+      {
+        "title": "Fabrică în Vulcana-Pandele",
+        "description": "Producție locală, comunicare directă și termene clare — fără lanțuri complicate de distribuție."
+      },
+      {
+        "title": "Montaj & finisaj",
+        "description": "Echipă care montează la locație în Dâmbovița și împrejurimi, cu atenție la detalii și aliniere."
+      }
+    ]
+  }
+}

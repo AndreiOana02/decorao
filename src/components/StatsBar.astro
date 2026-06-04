@@ -1,0 +1,47 @@
+---
+import site from '../data/site.json';
+---
+
+<div class="stats" role="region" aria-label="Decorao pe scurt">
+  <div class="container container--wide stats__inner">
+    {site.stats.map((stat) => (
+      <div class="stats__item">
+        <span class="stats__value">{stat.value}</span>
+        <span class="stats__label">{stat.label}</span>
+      </div>
+    ))}
+  </div>
+</div>
+
+<style>
+  .stats {
+    padding: 2rem 0;
+    background: var(--color-accent);
+    color: #faf8f5;
+  }
+
+  .stats__inner {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.5rem 2rem;
+    text-align: center;
+  }
+
+  .stats__value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .stats__label {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.88;
+  }
+</style>

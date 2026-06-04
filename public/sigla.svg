@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" role="img" aria-label="Decorao">
+  <rect width="64" height="64" rx="14" fill="#5c3a1e"/>
+  <path d="M18 46V18h16c8.5 0 14 5.2 14 14s-5.5 14-14 14H18z" fill="#faf8f5"/>
+  <path d="M26 26h8c4.2 0 7 2.5 7 6s-2.8 6-7 6h-8V26z" fill="#8b5a2b"/>
+  <rect x="44" y="22" width="4" height="20" rx="1" fill="#c4a574" opacity="0.9"/>
+</svg>

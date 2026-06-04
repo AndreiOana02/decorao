@@ -1,0 +1,90 @@
+---
+import type { GalerieItem } from '../lib/galerie';
+
+interface Props {
+  images: GalerieItem[];
+}
+
+const { images } = Astro.props;
+const showcase = images.slice(0, 6);
+---
+
+{showcase.length > 0 && (
+  <section class="section section--alt recent" id="lucrari">
+    <div class="container container--wide">
+      <p class="section__eyebrow">Portofoliu</p>
+      <h2 class="section__title">Lucrări recente</h2>
+      <p class="recent__intro">
+        Bucătării realizate la comandă — materiale Egger, lemn masiv și finisaje adaptate fiecărui spațiu.
+      </p>
+      <div class="recent__strip">
+        {showcase.map((item) => (
+          <a class="recent__tile" href="#bucatarii" title={item.title}>
+            <img src={item.src} alt={item.title} loading="lazy" width="320" height="240" />
+            <span class="recent__caption">{item.title}</span>
+          </a>
+        ))}
+      </div>
+      <p class="recent__more">
+        <a class="btn btn--ghost" href="#bucatarii">Vezi toate bucătăriile →</a>
+      </p>
+    </div>
+  </section>
+)}
+
+<style>
+  .recent__intro {
+    max-width: 52ch;
+    color: var(--color-muted);
+    margin: 0 0 2rem;
+  }
+
+  .recent__strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+
+  .recent__tile {
+    position: relative;
+    display: block;
+    border-radius: var(--radius);
+    overflow: hidden;
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .recent__tile:hover {
+    transform: scale(1.02);
+    box-shadow: var(--shadow);
+  }
+
+  .recent__tile img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .recent__tile:hover img {
+    transform: scale(1.05);
+  }
+
+  .recent__caption {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: 2rem 0.85rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    background: linear-gradient(transparent, rgba(28, 25, 23, 0.82));
+    line-height: 1.3;
+  }
+
+  .recent__more {
+    margin: 2rem 0 0;
+    text-align: center;
+  }
+</style>

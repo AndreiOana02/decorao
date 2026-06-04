@@ -1,0 +1,444 @@
+---
+
+import site from '../data/site.json';
+
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+
+---
+
+
+
+<header class="header">
+
+  <div class="container container--wide header__bar">
+
+    <a class="header__brand" href="#acasa">
+
+      <Logo />
+
+    </a>
+
+    <div class="header__actions">
+
+      <SocialLinks variant="icons" />
+
+      <a class="btn btn--primary header__cta" href="#contact">Cere ofertă</a>
+
+    </div>
+
+  </div>
+
+  <div class="container container--wide header__nav-wrap">
+
+    <button class="header__toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
+
+      <span class="sr-only">Meniu</span>
+
+      <span aria-hidden="true"></span>
+
+      <span aria-hidden="true"></span>
+
+      <span aria-hidden="true"></span>
+
+    </button>
+
+    <nav class="header__nav" id="nav-menu" aria-label="Principal">
+
+      <ul>
+
+        {site.nav.map((item) => (
+
+          <li>
+
+            <a href={`#${item.id}`} data-nav={item.id}>{item.label}</a>
+
+          </li>
+
+        ))}
+
+      </ul>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+
+<style>
+
+  .header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+    background: rgba(247, 243, 237, 0.92);
+
+    backdrop-filter: blur(12px);
+
+    border-bottom: 1px solid var(--color-border);
+
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+
+  }
+
+
+
+  .header__bar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 1rem;
+
+    padding: 0.65rem 0;
+
+    border-bottom: 1px solid var(--color-border);
+
+  }
+
+
+
+  .header__brand {
+
+    text-decoration: none;
+
+    color: inherit;
+
+    flex-shrink: 0;
+
+    max-width: min(260px, 55vw);
+
+    overflow: hidden;
+
+  }
+
+
+
+  .header__brand :global(.logo--full) {
+
+    max-width: 100%;
+
+  }
+
+
+
+  .header__brand :global(.logo__mark) {
+
+    width: 40px;
+
+    height: 40px;
+
+    max-width: 40px;
+
+    max-height: 40px;
+
+  }
+
+
+
+  .header__actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.5rem;
+
+    flex-shrink: 0;
+
+  }
+
+
+
+  .header__actions :global(.social--icons) {
+
+    gap: 0.25rem;
+
+  }
+
+
+
+  .header__cta {
+
+    flex-shrink: 0;
+
+    padding: 0.55rem 1rem;
+
+    font-size: 0.88rem;
+
+  }
+
+
+
+  @media (max-width: 480px) {
+
+    .header__actions :global(.social--icons a) {
+
+      width: 2rem;
+
+      height: 2rem;
+
+    }
+
+  }
+
+
+
+  .header__nav-wrap {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 0.35rem 0;
+
+  }
+
+
+
+  .header__nav ul {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 0.35rem 1rem;
+
+    list-style: none;
+
+    margin: 0;
+
+    padding: 0;
+
+  }
+
+
+
+  .header__nav a {
+
+    text-decoration: none;
+
+    color: var(--color-muted);
+
+    font-weight: 500;
+
+    font-size: 0.88rem;
+
+    white-space: nowrap;
+
+    padding: 0.25rem 0;
+
+    border-bottom: 2px solid transparent;
+
+    transition: color 0.15s ease, border-color 0.15s ease;
+
+  }
+
+
+
+  .header__nav a:hover {
+
+    color: var(--color-accent);
+
+  }
+
+
+
+  .header__nav a.is-active {
+
+    color: var(--color-accent-dark);
+
+    border-bottom-color: var(--color-accent);
+
+    font-weight: 600;
+
+  }
+
+
+
+  .header__toggle {
+
+    display: none;
+
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 8px;
+
+    margin-right: 0.5rem;
+
+    border: none;
+
+    background: transparent;
+
+    cursor: pointer;
+
+  }
+
+
+
+  .header__toggle span {
+
+    display: block;
+
+    width: 22px;
+
+    height: 2px;
+
+    background: var(--color-text);
+
+    border-radius: 2px;
+
+  }
+
+
+
+  @media (max-width: 768px) {
+
+    .header__toggle {
+
+      display: flex;
+
+    }
+
+
+
+    .header__nav-wrap {
+
+      flex-wrap: wrap;
+
+    }
+
+
+
+    .header__nav {
+
+      width: 100%;
+
+      max-height: 0;
+
+      overflow: hidden;
+
+      transition: max-height 0.25s ease;
+
+    }
+
+
+
+    .header__nav.is-open {
+
+      max-height: 320px;
+
+      padding-bottom: 0.75rem;
+
+    }
+
+
+
+    .header__nav ul {
+
+      flex-direction: column;
+
+      gap: 0.5rem;
+
+    }
+
+  }
+
+</style>
+
+
+
+<script>
+
+  const toggle = document.querySelector('.header__toggle');
+
+  const nav = document.querySelector('.header__nav');
+
+  toggle?.addEventListener('click', () => {
+
+    const open = nav?.classList.toggle('is-open');
+
+    toggle.setAttribute('aria-expanded', String(!!open));
+
+  });
+
+  nav?.querySelectorAll('a').forEach((link) => {
+
+    link.addEventListener('click', () => {
+
+      nav.classList.remove('is-open');
+
+      toggle?.setAttribute('aria-expanded', 'false');
+
+    });
+
+  });
+
+
+
+  const navLinks = [...document.querySelectorAll('[data-nav]')];
+
+  const sections = navLinks
+
+    .map((link) => {
+
+      const id = (link as HTMLElement).dataset.nav;
+
+      const el = id ? document.getElementById(id) : null;
+
+      return el ? { id, el, link } : null;
+
+    })
+
+    .filter(Boolean) as { id: string; el: HTMLElement; link: Element }[];
+
+
+
+  if (sections.length > 0 && 'IntersectionObserver' in window) {
+
+    const observer = new IntersectionObserver(
+
+      (entries) => {
+
+        const visible = entries
+
+          .filter((e) => e.isIntersecting)
+
+          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
+
+        if (!visible) return;
+
+        const id = visible.target.id;
+
+        navLinks.forEach((link) => {
+
+          link.classList.toggle('is-active', (link as HTMLElement).dataset.nav === id);
+
+        });
+
+      },
+
+      { rootMargin: '-40% 0px -45% 0px', threshold: [0, 0.15, 0.4] }
+
+    );
+
+    sections.forEach(({ el }) => observer.observe(el));
+
+  }
+
+</script>
+
+

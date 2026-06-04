@@ -1,0 +1,211 @@
+---
+import site from '../data/site.json';
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+
+const year = new Date().getFullYear();
+const tel = site.phoneTel ?? site.phone.replace(/\s/g, '');
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapsQuery ?? site.address)}`;
+const navLinks = site.nav.filter((item) => item.id !== 'contact' && item.id !== 'acasa');
+---
+
+<footer class="footer">
+  <div class="container container--wide">
+    <div class="footer__main">
+      <div class="footer__brand">
+        <a href="#acasa" class="footer__logo-link">
+          <Logo />
+        </a>
+        <p class="footer__tagline">Mobilă la comandă · Vulcana-Pandele</p>
+        <SocialLinks variant="icons" />
+      </div>
+
+      <div class="footer__contact">
+        <p class="footer__heading">Contact</p>
+        <div class="footer__contact-grid">
+          <a href={`tel:${tel}`}>{site.phone}</a>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={mapsUrl} target="_blank" rel="noopener noreferrer">{site.address}</a>
+          <span class="footer__hours">{site.hours}</span>
+        </div>
+        <a class="footer__cta" href="#contact">Cere ofertă</a>
+      </div>
+    </div>
+
+    <nav class="footer__nav" aria-label="Categorii și pagini">
+      <p class="footer__heading footer__heading--nav">Navigare rapidă</p>
+      <ul class="footer__nav-list">
+        <li><a href="#acasa">Acasă</a></li>
+        <li><a href="#despre">Despre</a></li>
+        <li><a href="#materiale">Materiale</a></li>
+        {navLinks.map((item) => (
+          <li>
+            <a href={`#${item.id}`}>{item.label}</a>
+          </li>
+        ))}
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="footer__bar">
+      <p class="footer__copy">© {year} {site.brand}. Toate drepturile rezervate.</p>
+      <a class="footer__domain" href={`https://${site.domain}`}>{site.domain}</a>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: 2rem;
+    padding: 3rem 0 1.5rem;
+    background: linear-gradient(180deg, #322c28 0%, #2c2622 100%);
+    color: #e8e4df;
+    font-size: 0.95rem;
+  }
+
+  .footer a {
+    color: #f8f4ef;
+    text-decoration: none;
+  }
+
+  .footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+
+  .footer__main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer__logo-link {
+    display: inline-block;
+    margin-bottom: 0.65rem;
+  }
+
+  .footer__logo-link :global(.logo__name) {
+    color: #f8f4ef;
+  }
+
+  .footer__logo-link :global(.logo__tag) {
+    color: #c4a574;
+  }
+
+  .footer__tagline {
+    margin: 0 0 1rem;
+    font-size: 0.9rem;
+    opacity: 0.85;
+  }
+
+  .footer__brand :global(.social--icons) {
+    gap: 0.5rem;
+  }
+
+  .footer__brand :global(.social--icons a) {
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #f8f4ef;
+  }
+
+  .footer__brand :global(.social--icons a:hover) {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  .footer__heading {
+    margin: 0 0 0.85rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #c4a574;
+  }
+
+  .footer__contact-grid {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .footer__hours {
+    opacity: 0.75;
+    font-size: 0.88rem;
+  }
+
+  .footer__cta {
+    display: inline-block;
+    padding: 0.65rem 1.35rem;
+    background: var(--color-accent);
+    color: #fff !important;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .footer__cta:hover {
+    background: var(--color-accent-dark);
+    text-decoration: none !important;
+  }
+
+  .footer__nav {
+    padding: 1.75rem 0 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .footer__heading--nav {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  .footer__nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 0.65rem;
+  }
+
+  .footer__nav-list a {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    font-size: 0.88rem;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .footer__nav-list a:hover {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  .footer__bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 1.25rem;
+  }
+
+  .footer__copy,
+  .footer__domain {
+    margin: 0;
+    font-size: 0.85rem;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 720px) {
+    .footer__main {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>

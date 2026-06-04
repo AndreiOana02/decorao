@@ -1,0 +1,216 @@
+---
+import type { GalerieItem } from '../lib/galerie';
+
+interface Props {
+  images: GalerieItem[];
+}
+
+const { images } = Astro.props;
+const slides =
+  images.length > 0
+    ? images
+    : [{ src: '/galerie/bucatarii/bucatarie-01.png', title: 'Bucătărie Decorao' }];
+const showDots = slides.length > 1 && slides.length <= 14;
+const showCounter = slides.length > 14;
+---
+
+<div
+  class="hero-visual hero__visual"
+  data-hero-carousel
+  data-slides={JSON.stringify(slides)}
+>
+  <div class="hero-visual__frame">
+    <figure class="hero-visual__slide is-active">
+      <img
+        src={slides[0].src}
+        alt={slides[0].title}
+        width="720"
+        height="540"
+        fetchpriority="high"
+        decoding="async"
+        data-hero-img
+      />
+    </figure>
+    <div class="hero-visual__overlay" aria-hidden="true"></div>
+    {showDots && (
+      <div class="hero-visual__dots" role="tablist" aria-label="Imagini hero">
+        {slides.map((_, i) => (
+          <button
+            type="button"
+            class:list={['hero-visual__dot', { 'is-active': i === 0 }]}
+            data-dot={i}
+            aria-label={`Imagine ${i + 1}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+          />
+        ))}
+      </div>
+    )}
+    {showCounter && (
+      <p class="hero-visual__counter" data-hero-counter aria-live="polite">
+        1 / {slides.length}
+      </p>
+    )}
+  </div>
+  {slides.length > 1 && (
+    <p class="hero-visual__caption" data-hero-caption>
+      {slides[0].title}
+    </p>
+  )}
+</div>
+
+<style>
+  .hero-visual {
+    width: 100%;
+  }
+
+  .hero-visual__frame {
+    position: relative;
+    border-radius: calc(var(--radius) * 1.5);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 4 / 3;
+    background: var(--color-text);
+  }
+
+  .hero-visual__slide {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .hero-visual__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .hero-visual__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(28, 25, 23, 0.15) 0%,
+      transparent 45%,
+      rgba(139, 90, 43, 0.12) 100%
+    );
+    pointer-events: none;
+  }
+
+  .hero-visual__dots {
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.35rem;
+    max-width: 90%;
+    z-index: 2;
+  }
+
+  .hero-visual__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.45);
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .hero-visual__dot.is-active {
+    background: #fff;
+    transform: scale(1.2);
+  }
+
+  .hero-visual__counter {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    margin: 0;
+    padding: 0.35rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: rgba(28, 25, 23, 0.55);
+    border-radius: 999px;
+    z-index: 2;
+  }
+
+  .hero-visual__caption {
+    margin: 0.75rem 0 0;
+    font-size: 0.88rem;
+    color: var(--color-muted);
+    text-align: center;
+    font-style: italic;
+  }
+</style>
+
+<script>
+  const root = document.querySelector('[data-hero-carousel]');
+  if (!root) {
+    /* no carousel */
+  } else {
+    type Slide = { src: string; title: string };
+    let slides: Slide[] = [];
+    try {
+      slides = JSON.parse(root.getAttribute('data-slides') ?? '[]') as Slide[];
+    } catch {
+      slides = [];
+    }
+
+    const img = root.querySelector('[data-hero-img]') as HTMLImageElement | null;
+    const dots = [...root.querySelectorAll('[data-dot]')];
+    const caption = root.querySelector('[data-hero-caption]');
+    const counter = root.querySelector('[data-hero-counter]');
+    let current = 0;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    function preload(index: number) {
+      const s = slides[index];
+      if (!s) return;
+      const el = new Image();
+      el.src = s.src;
+    }
+
+    function goTo(index: number) {
+      if (!img || slides.length === 0) return;
+      current = (index + slides.length) % slides.length;
+      const slide = slides[current];
+      img.src = slide.src;
+      img.alt = slide.title;
+      dots.forEach((el, i) => {
+        el.classList.toggle('is-active', i === current);
+        el.setAttribute('aria-selected', String(i === current));
+      });
+      if (caption) caption.textContent = slide.title;
+      if (counter) counter.textContent = `${current + 1} / ${slides.length}`;
+      preload((current + 1) % slides.length);
+    }
+
+    function startAutoplay() {
+      if (slides.length < 2) return;
+      timer = setInterval(() => goTo(current + 1), 5500);
+    }
+
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const i = Number((dot as HTMLElement).dataset.dot);
+        goTo(i);
+        if (timer) clearInterval(timer);
+        startAutoplay();
+      });
+    });
+
+    if (slides.length > 1) {
+      preload(1);
+      goTo(0);
+      startAutoplay();
+    }
+  }
+</script>
