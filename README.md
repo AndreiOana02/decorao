@@ -54,7 +54,11 @@ npm run preview  # verifică build-ul
 
 Dublu-click pe **`Upload-pe-GitHub.bat`** sau vezi **`GITHUB.md`** pentru pașii de upload.
 
-## Publicare pe decorao.ro
+## Deploy pe Vercel (+ decorao.ro)
+
+După GitHub: [vercel.com](https://vercel.com) → Import proiect `decorao` → Deploy. Domeniul: **Settings → Domains**. Pași detaliați în **`VERCEL.md`**.
+
+## Publicare pe decorao.ro (Netlify / altele)
 
 Încarcă conținutul din **`dist/`** pe hosting-ul domeniului (cPanel, Netlify, Cloudflare Pages etc.). Setează domeniul `decorao.ro` către acel site.
 

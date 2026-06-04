@@ -47,6 +47,59 @@ Fără asta, nu am acces la contul tău de domeniu și nu pot lega `decorao.ro` 
 
 ---
 
-## Ce NU ține site-ul online pentru alții
+## Legarea domeniului **decorao.ro** (ai deja domeniul)
 
-- `npm run dev` — doar pe PC-ul tău, pentru previzualizare.
+Domeniul singur nu afișează site-ul — trebuie **hosting** (Netlify / Cloudflare / cPanel) + setări **DNS** la firma unde ai cumpărat `.ro` (ex. ROTLD, Hostinger, GoDaddy, etc.).
+
+### Recomandat: Vercel + GitHub (deploy automat)
+
+1. Urcă codul pe GitHub (`Upload-pe-GitHub.bat`).
+2. [vercel.com](https://vercel.com) → login cu GitHub → **Import** repo `decorao`.
+3. Deploy (setări în `vercel.json`: build `npm run build`, output `dist`).
+4. **Settings → Domains** → `decorao.ro` + `www.decorao.ro` → configurezi DNS la registrar.
+
+Ghid complet: **`VERCEL.md`**.
+
+### Alternativ: Netlify + GitHub (deploy automat)
+
+1. Urcă codul pe GitHub (`Upload-pe-GitHub.bat`).
+2. Cont gratuit: https://app.netlify.com → **Add new site** → **Import from Git** → alege repo-ul `decorao`.
+3. Netlify detectează singur build-ul (`npm run build`, folder `dist` — vezi `netlify.toml`).
+4. După primul deploy reușit: **Domain management** → **Add a domain** → `decorao.ro`.
+5. Adaugă și **`www.decorao.ro`** (Netlify oferă redirect www → fără www sau invers — alege una ca principală).
+
+### DNS la registrar (unde ai cumpărat decorao.ro)
+
+Netlify îți arată valorile exacte în panou. De obicei:
+
+| Tip | Nume / gazdă | Valoare |
+|-----|----------------|---------|
+| **A** | `@` (rădăcină) | IP-ul afișat de Netlify (ex. `75.2.60.5`) |
+| **CNAME** | `www` | `nume-site-ul-tau.netlify.app` |
+
+**Sau** (mai simplu): la registrar schimbi **nameserverele** la cele oferite de Netlify — atunci Netlify gestionează tot DNS-ul.
+
+Propagarea DNS: de la câteva minute până la **24–48 ore**. Netlify activează **HTTPS** (certificat gratuit) după ce DNS e corect.
+
+### Varianta Cloudflare
+
+1. Muți nameserverele domeniului la Cloudflare (gratuit).
+2. **Pages** → proiect din GitHub sau upload `dist`.
+3. **Custom domains** → `decorao.ro` + `www`.
+4. Cloudflare pune automat proxy + SSL.
+
+### Varianta hosting clasic (cPanel la firma de hosting)
+
+1. `npm run build`
+2. Urci fișierele din **`dist/`** în **`public_html`** (sau subdomeniul setat pentru decorao.ro).
+3. La DNS: **A** `@` → IP-ul serverului de hosting; **CNAME** `www` → același server sau `decorao.ro`.
+
+### Verificare
+
+- Site nou online: deschide linkul Netlify (`*.netlify.app`) — dacă merge acolo, codul e OK; apoi aștepți DNS pentru `decorao.ro`.
+- După legare: https://decorao.ro și https://www.decorao.ro (redirect pe una singură e normal).
+
+### Ce NU ține site-ul online pentru alții
+
+- `npm run dev` / `Porneste-site.bat` — doar pe PC-ul tău, pentru previzualizare.
+- Domeniul fără hosting/DNS — `decorao.ro` nu arată nimic sau arată pagina veche a registrarului.
