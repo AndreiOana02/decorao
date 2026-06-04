@@ -89,7 +89,7 @@ const showCounter = slides.length > 14;
     box-shadow: var(--shadow-lg);
     aspect-ratio: 4 / 3;
     background: var(--color-text);
-    touch-action: none;
+    touch-action: pan-y pinch-zoom;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
@@ -237,6 +237,7 @@ const showCounter = slides.length > 14;
     let timer: ReturnType<typeof setInterval> | undefined;
     const SWIPE_PX = 40;
     let startX = 0;
+    let startY = 0;
     let dragging = false;
 
     function preload(index: number) {
@@ -288,6 +289,7 @@ const showCounter = slides.length > 14;
       (e) => {
         if (e.touches.length !== 1) return;
         startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
         dragging = true;
         pauseAutoplay();
       },
@@ -300,7 +302,11 @@ const showCounter = slides.length > 14;
         if (!dragging) return;
         dragging = false;
         const touch = e.changedTouches[0];
-        if (touch) onSwipe(touch.clientX - startX);
+        if (touch) {
+          const dx = touch.clientX - startX;
+          const dy = touch.clientY - startY;
+          if (Math.abs(dx) > Math.abs(dy)) onSwipe(dx);
+        }
         startAutoplay();
       },
       { passive: true }

@@ -163,7 +163,19 @@ const galleryFit = id === 'usi' || id === 'baie';
 
     line-height: 1.4;
 
-    white-space: nowrap;
+  }
+
+
+
+  @media (max-width: 768px) {
+
+    .room__features {
+
+      flex-wrap: wrap;
+
+      gap: 0.4rem 0.85rem;
+
+    }
 
   }
 
@@ -195,11 +207,25 @@ const galleryFit = id === 'usi' || id === 'baie';
 
     display: grid;
 
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 160px), 1fr));
 
-    gap: 1.35rem;
+    gap: 1rem;
 
     width: 100%;
+
+  }
+
+
+
+  @media (max-width: 480px) {
+
+    .gallery {
+
+      grid-template-columns: 1fr;
+
+      gap: 0.85rem;
+
+    }
 
   }
 

@@ -279,7 +279,7 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
     display: grid;
 
-    grid-template-columns: minmax(340px, 1fr) minmax(360px, 1.1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
 
     gap: clamp(1.75rem, 3vw, 3rem);
 
@@ -595,13 +595,15 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 
 
 
-  @media (max-width: 960px) {
+  @media (max-width: 900px) {
 
     .hero__grid,
 
     .contact__grid {
 
       grid-template-columns: 1fr;
+
+      gap: 1.25rem;
 
     }
 
@@ -610,6 +612,44 @@ const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
     .hero__aside {
 
       order: -1;
+
+    }
+
+
+
+    .hero__subtitle {
+
+      max-width: none;
+
+    }
+
+
+
+    .hero__actions {
+
+      flex-direction: column;
+
+      align-items: stretch;
+
+    }
+
+
+
+    .hero__actions .btn {
+
+      width: 100%;
+
+    }
+
+  }
+
+
+
+  @media (max-width: 768px) {
+
+    .hero {
+
+      padding: 1.25rem 0 2.5rem;
 
     }
 

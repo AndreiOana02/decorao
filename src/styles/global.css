@@ -54,6 +54,8 @@ html {
 
   scroll-padding-top: var(--header-h);
 
+  overflow-x: clip;
+
 }
 
 
@@ -447,6 +449,78 @@ a:hover {
 .lightbox__close:hover {
 
   background: rgba(255, 255, 255, 0.22);
+
+}
+
+
+
+@media (max-width: 768px) {
+
+  :root {
+
+    --header-h: 4.75rem;
+
+  }
+
+
+
+  .container,
+
+  .container--wide {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    padding-inline: 1rem;
+
+  }
+
+
+
+  .section {
+
+    padding: 2.75rem 0;
+
+  }
+
+}
+
+
+
+@media (max-width: 480px) {
+
+  :root {
+
+    --header-h: 4.25rem;
+
+  }
+
+
+
+  body {
+
+    font-size: 1rem;
+
+  }
+
+
+
+  .section {
+
+    padding: 2.25rem 0;
+
+  }
+
+
+
+  .btn {
+
+    padding: 0.75rem 1.15rem;
+
+    font-size: 0.95rem;
+
+  }
 
 }
 
