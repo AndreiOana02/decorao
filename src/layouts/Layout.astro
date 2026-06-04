@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import site from '../data/site.json';
 
 interface Props {
@@ -35,5 +36,6 @@ const pageDesc = description ?? site.tagline;
   </head>
   <body>
     <slot />
+    <GoogleAnalytics />
   </body>
 </html>
