@@ -14,11 +14,12 @@ const { slides } = Astro.props;
   <div class="hero__bg" aria-hidden="true"></div>
   <div class="container container--wide hero__grid">
     <div class="hero__panel" style={`--hero-panel-bg: url('${site.hero.panelImage}')`}>
-      <p class="hero__eyebrow">Fabrică de mobilă · Dâmbovița</p>
+      <p class="hero__eyebrow">Fabrică de mobilă la comandă · Dâmbovița</p>
       <h1 class="hero__title">
+        Mobilă la comandă
         <span class="hero__brand">{site.brand}</span>
       </h1>
-      <p class="hero__subtitle">{site.tagline}</p>
+      <p class="hero__subtitle">{site.tagline} — bucătării, dormitoare, uși și scări. Montaj în București, Ilfov, Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman și Ialomița.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="/contact">Solicită ofertă</a>
         <a class="btn btn--ghost" href="/bucatarii">Vezi lucrările</a>
@@ -103,20 +104,25 @@ const { slides } = Astro.props;
   .hero__title {
     margin: 0 0 0.5rem;
     line-height: 1.15;
+    font-family: var(--font-display);
+    font-size: clamp(1.65rem, 3.2vw, 2.1rem);
+    font-weight: 500;
+    color: var(--color-text);
   }
 
   .hero__brand {
     display: block;
+    margin-top: 0.15rem;
     font-family: var(--font-display);
     font-size: clamp(2rem, 4.5vw, 2.85rem);
     font-weight: 500;
-    color: var(--color-text);
+    color: var(--color-accent-dark);
     letter-spacing: 0.02em;
   }
 
   .hero__subtitle {
     margin: 0 0 1.35rem;
-    max-width: 36ch;
+    max-width: 42ch;
     font-size: clamp(1rem, 1.8vw, 1.15rem);
     font-weight: 400;
     color: var(--color-muted);

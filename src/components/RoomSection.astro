@@ -18,12 +18,15 @@ interface Props {
 
   altBg?: boolean;
 
+  heading?: 'h1' | 'h2';
+
 }
 
 
 
-const { id, title, intro, features, images, altBg = false } = Astro.props;
+const { id, title, intro, features, images, altBg = false, heading = 'h2' } = Astro.props;
 
+const HeadingTag = heading;
 ---
 
 
@@ -34,7 +37,7 @@ const { id, title, intro, features, images, altBg = false } = Astro.props;
 
     <p class="section__eyebrow">Mobilă la comandă</p>
 
-    <h2 class="section__title">{title}</h2>
+    <HeadingTag class="section__title">{title}</HeadingTag>
 
     <p class="room__intro">{intro}</p>
 

@@ -1,0 +1,67 @@
+---
+import type { BreadcrumbItem } from '../lib/seo';
+import {
+  absoluteUrl,
+  breadcrumbJsonLd,
+  buildOgImage,
+  buildPageDescription,
+  buildPageTitle,
+  jsonLdScript,
+  localBusinessJsonLd,
+  webSiteJsonLd,
+} from '../lib/seo';
+import site from '../data/site.json';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  isHome?: boolean;
+  ogImage?: string;
+  breadcrumbs?: BreadcrumbItem[];
+}
+
+const { title, description, path = '/', isHome = false, ogImage, breadcrumbs = [] } = Astro.props;
+
+const pageTitle = buildPageTitle(title, isHome);
+const pageDesc = buildPageDescription(description, isHome);
+const canonical = absoluteUrl(path);
+const imageUrl = buildOgImage(ogImage);
+
+const structuredData = isHome
+  ? [localBusinessJsonLd(), webSiteJsonLd()]
+  : breadcrumbs.length
+    ? [breadcrumbJsonLd(breadcrumbs)]
+    : [];
+---
+
+<meta name="description" content={pageDesc} />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="author" content={site.brand} />
+<meta name="geo.region" content={site.seo.geoRegion} />
+<meta name="geo.placename" content={site.seo.geoPlacename} />
+
+<link rel="canonical" href={canonical} />
+<link rel="alternate" hreflang="ro" href={canonical} />
+
+<meta property="og:locale" content={site.seo.locale} />
+<meta property="og:site_name" content={site.brand} />
+<meta property="og:title" content={pageTitle} />
+<meta property="og:description" content={pageDesc} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content="website" />
+<meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={`${site.brand} — mobilă la comandă`} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={pageTitle} />
+<meta name="twitter:description" content={pageDesc} />
+<meta name="twitter:image" content={imageUrl} />
+
+<title>{pageTitle}</title>
+
+{
+  structuredData.length > 0 && (
+    <script type="application/ld+json" set:html={jsonLdScript(structuredData)} />
+  )
+}

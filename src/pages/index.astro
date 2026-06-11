@@ -10,15 +10,15 @@ const galerieByRoom = getGalerieByRoom();
 const heroSlides = getHeroSlides(site.rooms.map((r) => r.id));
 ---
 
-<PageShell>
+<PageShell isHome path="/">
   <HeroHome slides={heroSlides} />
   <StatsBar />
   <CategoryGrid galerieByRoom={galerieByRoom} />
   <section class="section home-cta">
     <div class="container container--wide home-cta__inner">
-      <h2 class="home-cta__title">Ai un proiect în minte?</h2>
+      <h2 class="home-cta__title">Mobilă la comandă — ai un proiect în minte?</h2>
       <p class="home-cta__text">
-        Spune-ne ce cameră te interesează — revenim cu ofertă și termen estimat.
+        Spune-ne ce cameră te interesează — bucătărie, dormitor, living sau uși. Revenim cu ofertă și termen estimat.
       </p>
       <div class="home-cta__actions">
         <a class="btn btn--primary" href="/contact">Solicită ofertă</a>

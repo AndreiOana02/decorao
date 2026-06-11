@@ -5,6 +5,66 @@
     "panelImage": "/galerie/bucatarii/bucatarie-03.png"
   },
   "domain": "decorao.ro",
+  "seo": {
+    "homeTitle": "Mobilă la comandă Târgoviște, București, Ilfov | Decorao",
+    "homeDescription": "Mobilă la comandă în Târgoviște, București și Ilfov (Buftea, Voluntari, Otopeni) — bucătării, dormitoare, uși și scări din lemn masiv, MDF și PAL Egger. Montaj și în Dâmbovița, Prahova (Ploiești), Argeș (Pitești), Giurgiu, Teleorman și Ialomița.",
+    "defaultImage": "/galerie/bucatarii/bucatarie-03.png",
+    "locale": "ro_RO",
+    "geoRegion": "RO-DB",
+    "geoPlacename": "Târgoviște, București, Ilfov",
+    "serviceArea": {
+      "counties": [
+        { "name": "Dâmbovița", "cities": ["Târgoviște", "Moreni", "Pucioasa", "Găești"] },
+        { "name": "București", "cities": ["București"] },
+        { "name": "Ilfov", "cities": ["Buftea", "Voluntari", "Otopeni", "Popești-Leordeni", "Bragadiru", "Chitila", "Măgurele"] },
+        { "name": "Prahova", "cities": ["Ploiești", "Câmpina", "Sinaia"] },
+        { "name": "Argeș", "cities": ["Pitești", "Mioveni", "Câmpulung"] },
+        { "name": "Giurgiu", "cities": ["Giurgiu"] },
+        { "name": "Teleorman", "cities": ["Alexandria", "Roșiorii de Vede"] },
+        { "name": "Ialomița", "cities": ["Slobozia", "Urziceni"] }
+      ]
+    },
+    "pages": {
+      "despre": {
+        "title": "Despre noi — fabrică mobilă la comandă",
+        "description": "Peste 30 de ani în mobilă la comandă din lemn masiv, PAL și MDF. Decorao, Târgoviște — montaj în București, Ilfov (Buftea, Voluntari, Otopeni), Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița: Ploiești, Pitești, Giurgiu, Alexandria."
+      },
+      "materiale": {
+        "title": "Materiale mobilă la comandă — MDF, PAL Egger, lemn masiv",
+        "description": "MDF vopsit, PAL Egger și lemn masiv pentru mobilă la comandă. Decorao, Târgoviște — livrare și montaj în București, Ilfov, Dâmbovița, Prahova (Ploiești), Argeș (Pitești), Giurgiu, Teleorman și Ialomița."
+      },
+      "contact": {
+        "title": "Contact mobilă la comandă Târgoviște, București, Ilfov",
+        "description": "Ofertă mobilă la comandă — Decorao, Târgoviște. Sună pentru bucătării, dormitoare, uși și scări. Acoperim București, Ilfov (Buftea, Voluntari, Otopeni), Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița."
+      }
+    },
+    "rooms": {
+      "bucatarii": {
+        "title": "Bucătării la comandă Târgoviște, București",
+        "description": "Bucătării la comandă din MDF, PAL Egger și lemn masiv. Decorao, Târgoviște — montaj în București, Ilfov (Buftea, Voluntari), Dâmbovița, Prahova (Ploiești, Câmpina), Argeș (Pitești), Giurgiu, Teleorman, Ialomița."
+      },
+      "dormitor": {
+        "title": "Mobilier dormitor la comandă București, Ilfov",
+        "description": "Dormitor la comandă — paturi, dressing-uri, dulapuri MDF și lemn masiv. Decorao, Târgoviște. Montaj în București, Ilfov, Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița: Ploiești, Pitești, Buftea, Voluntari."
+      },
+      "baie": {
+        "title": "Mobilier baie la comandă București, Ilfov",
+        "description": "Mobilier baie la comandă, antiumiditate — MDF vopsit sau lemn masiv. Decorao, Târgoviște. Montaj în București, Ilfov (Otopeni, Popești-Leordeni), Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița."
+      },
+      "living": {
+        "title": "Mobilier living la comandă București, Ilfov",
+        "description": "Living la comandă — biblioteci, pereți TV, comode MDF și lemn masiv. Decorao, Târgoviște. Montaj în București, Ilfov, Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița: Ploiești, Pitești, Buftea."
+      },
+      "usi": {
+        "title": "Uși interioare la comandă București, Ilfov",
+        "description": "Uși interioare la comandă din MDF vopsit sau lemn masiv. Decorao, Târgoviște — montaj în București, Ilfov (Voluntari, Buftea, Otopeni), Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița."
+      },
+      "scari": {
+        "title": "Scări interioare la comandă București, Ilfov",
+        "description": "Scări interioare la comandă din lemn masiv — trepte și mână curentă. Decorao, Târgoviște. Montaj în București, Ilfov, Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița: Ploiești, Pitești, Câmpina."
+      }
+    }
+  },
   "googleAnalyticsId": "G-Y6HXKH000T",
   "phone": "0726 051 045",
   "phoneTel": "+40726051045",

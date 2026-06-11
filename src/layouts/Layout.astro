@@ -2,19 +2,19 @@
 import '../styles/global.css';
 import GoogleAnalytics from '../components/GoogleAnalytics.astro';
 import Lightbox from '../components/Lightbox.astro';
-import site from '../data/site.json';
+import SeoHead from '../components/SeoHead.astro';
+import type { BreadcrumbItem } from '../lib/seo';
 
 interface Props {
   title?: string;
   description?: string;
   path?: string;
+  isHome?: boolean;
+  ogImage?: string;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { title, description, path = '/' } = Astro.props;
-const pageTitle = title ? `${title} | ${site.brand}` : `${site.brand} — ${site.tagline}`;
-const pageDesc = description ?? site.tagline;
-const canonicalPath = path.startsWith('/') ? path : `/${path}`;
-const canonical = `https://${site.domain}${canonicalPath === '/' ? '/' : canonicalPath}`;
+const { title, description, path = '/', isHome = false, ogImage, breadcrumbs } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,8 +22,6 @@ const canonical = `https://${site.domain}${canonicalPath === '/' ? '/' : canonic
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content={pageDesc} />
-    <meta name="generator" content={Astro.generator} />
     <script is:inline>
       (function () {
         try {
@@ -42,12 +40,14 @@ const canonical = `https://${site.domain}${canonicalPath === '/' ? '/' : canonic
       href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=DM+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="canonical" href={canonical} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={pageDesc} />
-    <meta property="og:url" content={canonical} />
-    <meta property="og:type" content="website" />
-    <title>{pageTitle}</title>
+    <SeoHead
+      title={title}
+      description={description}
+      path={path}
+      isHome={isHome}
+      ogImage={ogImage}
+      breadcrumbs={breadcrumbs}
+    />
   </head>
   <body>
     <slot />

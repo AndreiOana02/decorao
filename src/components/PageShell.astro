@@ -7,13 +7,23 @@ interface Props {
   title?: string;
   description?: string;
   path?: string;
+  isHome?: boolean;
+  ogImage?: string;
+  breadcrumbs?: import('../lib/seo').BreadcrumbItem[];
 }
 
-const { title, description, path } = Astro.props;
+const { title, description, path, isHome, ogImage, breadcrumbs } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
-<Layout title={title} description={description} path={path}>
+<Layout
+  title={title}
+  description={description}
+  path={path}
+  isHome={isHome}
+  ogImage={ogImage}
+  breadcrumbs={breadcrumbs}
+>
   <Header currentPath={currentPath} />
   <main>
     <slot />

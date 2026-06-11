@@ -2,6 +2,13 @@
 import site from '../data/site.json';
 import SocialLinks from './SocialLinks.astro';
 
+interface Props {
+  heading?: 'h1' | 'h2';
+}
+
+const { heading = 'h2' } = Astro.props;
+const HeadingTag = heading;
+
 const tel = site.phoneTel ?? site.phone.replace(/\s/g, '');
 const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapsQuery ?? site.address)}`;
 ---
@@ -10,7 +17,7 @@ const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComp
   <div class="container container--wide contact__grid">
     <div>
       <p class="section__eyebrow">Contact</p>
-      <h2 class="section__title">Hai să discutăm proiectul tău</h2>
+      <HeadingTag class="section__title">Hai să discutăm proiectul tău</HeadingTag>
       <p>
         Sună-ne, scrie pe e-mail sau pe rețelele sociale — cu dimensiunile spațiului și camera dorită
         revenim cu ofertă și termen estimat.
