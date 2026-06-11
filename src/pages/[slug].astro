@@ -5,7 +5,6 @@ import WhyDecorao from '../components/WhyDecorao.astro';
 import HowWeWork from '../components/HowWeWork.astro';
 import MaterialsShowcase from '../components/MaterialsShowcase.astro';
 import ContactSection from '../components/ContactSection.astro';
-import Configurator from '../components/Configurator.astro';
 import site from '../data/site.json';
 import { SITE_PAGE_IDS } from '../lib/nav';
 import { getGalerieForRoom } from '../lib/galerie';
@@ -27,15 +26,7 @@ const seoDescription = roomSeo?.description ?? pageSeo?.description;
 const breadcrumbs = [
   { label: 'Acasă', href: '/' },
   {
-    label:
-      room?.label ??
-      (slug === 'despre'
-        ? 'Despre'
-        : slug === 'materiale'
-          ? 'Materiale'
-          : slug === 'configurator'
-            ? 'Configurator'
-            : 'Contact'),
+    label: room?.label ?? (slug === 'despre' ? 'Despre' : slug === 'materiale' ? 'Materiale' : 'Contact'),
     href: pagePath,
   },
 ];
@@ -67,12 +58,6 @@ const breadcrumbs = [
       </div>
     </section>
     <MaterialsShowcase />
-  </PageShell>
-)}
-
-{slug === 'configurator' && (
-  <PageShell title={seoTitle} description={seoDescription} path={pagePath} breadcrumbs={breadcrumbs}>
-    <Configurator />
   </PageShell>
 )}
 

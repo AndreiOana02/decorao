@@ -13,10 +13,10 @@ interface Props {
 const { currentPath } = Astro.props;
 
 const navMain = site.nav.filter((item) =>
-  ['acasa', 'despre', 'materiale', 'configurator', 'contact'].includes(item.id)
+  ['acasa', 'despre', 'materiale', 'contact'].includes(item.id)
 );
 const navRooms = site.nav.filter(
-  (item) => !['acasa', 'despre', 'materiale', 'configurator', 'contact'].includes(item.id)
+  (item) => !['acasa', 'despre', 'materiale', 'contact'].includes(item.id)
 );
 ---
 
@@ -210,7 +210,7 @@ const navRooms = site.nav.filter(
 
   .header__nav-list--site {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.45rem;
     list-style: none;
     margin: 0;

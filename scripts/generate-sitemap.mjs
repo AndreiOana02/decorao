@@ -8,7 +8,7 @@ const domain = site.domain;
 const base = `https://${domain}`;
 const lastmod = new Date().toISOString().slice(0, 10);
 
-const staticPages = ['despre', 'materiale', 'configurator', 'contact'];
+const staticPages = ['despre', 'materiale', 'contact'];
 const roomPages = site.rooms.map((room) => room.id);
 const paths = ['/', ...staticPages.map((p) => `/${p}`), ...roomPages.map((p) => `/${p}`)];
 const roomSet = new Set(roomPages.map((p) => `/${p}`));
