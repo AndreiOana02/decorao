@@ -82,11 +82,11 @@ const { galerieByRoom } = Astro.props;
     display: block;
     aspect-ratio: 4 / 3;
     overflow: hidden;
-    background: #f3efe8;
+    background: var(--color-elevated);
   }
 
   .category-grid__media--empty {
-    background: linear-gradient(135deg, #f3efe8, #e6ddd0);
+    background: linear-gradient(135deg, var(--color-elevated), var(--color-border));
   }
 
   .category-grid__media img {

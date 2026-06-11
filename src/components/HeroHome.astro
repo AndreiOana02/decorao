@@ -40,10 +40,7 @@ const { slides } = Astro.props;
   .hero__bg {
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(155deg, rgba(247, 243, 237, 0.97) 0%, rgba(247, 243, 237, 0.85) 40%, transparent 70%),
-      radial-gradient(ellipse 90% 60% at 80% 20%, rgba(139, 90, 43, 0.08), transparent 55%),
-      linear-gradient(160deg, #ebe4d8 0%, var(--color-bg) 50%);
+    background: var(--color-hero-bg);
     z-index: 0;
   }
 
@@ -63,10 +60,10 @@ const { slides } = Astro.props;
     justify-content: center;
     padding: clamp(1.5rem, 2.5vw, 2.25rem);
     overflow: hidden;
-    background: linear-gradient(145deg, #f8f2ea 0%, #efe4d6 42%, #e6d9c8 100%);
+    background: var(--color-hero-panel);
     border: 1px solid rgba(139, 90, 43, 0.22);
     border-radius: calc(var(--radius) + 8px);
-    box-shadow: var(--shadow), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+    box-shadow: var(--shadow), inset 0 1px 0 var(--color-section-inset);
   }
 
   .hero__panel::before {
@@ -85,15 +82,7 @@ const { slides } = Astro.props;
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      linear-gradient(
-        105deg,
-        rgba(248, 242, 234, 0.94) 0%,
-        rgba(239, 228, 214, 0.82) 42%,
-        rgba(230, 217, 200, 0.5) 68%,
-        rgba(230, 217, 200, 0.12) 100%
-      ),
-      radial-gradient(ellipse 90% 80% at 100% 0%, rgba(196, 165, 116, 0.28), transparent 55%);
+    background: var(--color-hero-panel-overlay);
     pointer-events: none;
   }
 

@@ -1,0 +1,158 @@
+---
+---
+
+<div class="theme-toggle" role="group" aria-label="Temă site">
+  <button
+    type="button"
+    class="theme-toggle__btn"
+    data-theme="light"
+    aria-pressed="false"
+    title="Light"
+  >
+    <svg class="theme-toggle__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41" />
+    </svg>
+    <span class="theme-toggle__label">Light</span>
+  </button>
+  <button
+    type="button"
+    class="theme-toggle__btn"
+    data-theme="dark"
+    aria-pressed="false"
+    title="Dark"
+  >
+    <svg class="theme-toggle__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+    </svg>
+    <span class="theme-toggle__label">Dark</span>
+  </button>
+</div>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem;
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .theme-toggle__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    min-width: 2.15rem;
+    height: 2.15rem;
+    padding: 0 0.45rem;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-muted);
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background 0.15s ease,
+      color 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .theme-toggle__btn:hover {
+    color: var(--color-text);
+    background: var(--color-accent-soft);
+  }
+
+  .theme-toggle__btn[aria-pressed='true'] {
+    color: var(--color-on-accent);
+    background: var(--color-accent);
+    box-shadow: 0 2px 8px rgba(139, 90, 43, 0.25);
+  }
+
+  .theme-toggle__icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  .theme-toggle__label {
+    display: none;
+  }
+
+  @media (min-width: 900px) {
+    .theme-toggle__btn {
+      min-width: auto;
+      padding: 0 0.55rem;
+    }
+
+    .theme-toggle__label {
+      display: inline;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .theme-toggle__btn {
+      min-width: 2rem;
+      height: 2rem;
+      padding: 0 0.35rem;
+    }
+
+    .theme-toggle__icon {
+      width: 0.9rem;
+      height: 0.9rem;
+    }
+  }
+</style>
+
+<script>
+  const THEME_KEY = 'decorao-theme';
+  const root = document.documentElement;
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.theme-toggle__btn');
+
+  function setActive(theme: string) {
+    buttons.forEach((btn) => {
+      btn.setAttribute('aria-pressed', String(btn.dataset.theme === theme));
+    });
+  }
+
+  function applyTheme(theme: string) {
+    root.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      /* ignore */
+    }
+    setActive(theme);
+  }
+
+  function normalizeTheme(theme: string | null) {
+    return theme === 'dark' ? 'dark' : 'light';
+  }
+
+  const stored = normalizeTheme((() => {
+    try {
+      return localStorage.getItem(THEME_KEY);
+    } catch {
+      return null;
+    }
+  })());
+
+  applyTheme(stored);
+
+  buttons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.theme;
+      if (theme) applyTheme(theme);
+    });
+  });
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === THEME_KEY && event.newValue) {
+      applyTheme(normalizeTheme(event.newValue));
+    }
+  });
+</script>

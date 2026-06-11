@@ -4,6 +4,7 @@ import { isNavActive, navHref } from '../lib/nav';
 
 import Logo from './Logo.astro';
 import SocialLinks from './SocialLinks.astro';
+import ThemeToggle from './ThemeToggle.astro';
 
 interface Props {
   currentPath: string;
@@ -26,6 +27,8 @@ const navRooms = site.nav.filter(
     </a>
 
     <div class="header__tools">
+      <ThemeToggle />
+
       <button
         class="header__toggle"
         type="button"
@@ -89,10 +92,10 @@ const navRooms = site.nav.filter(
     position: sticky;
     top: 0;
     z-index: 50;
-    background: rgba(247, 243, 237, 0.94);
+    background: var(--color-header-bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--color-border);
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    box-shadow: 0 1px 0 var(--color-header-highlight);
   }
 
   .header__bar {
@@ -178,9 +181,9 @@ const navRooms = site.nav.filter(
     min-width: 0;
     padding: 0.55rem 0.75rem;
     border-radius: calc(var(--radius) + 2px);
-    background: rgba(255, 255, 255, 0.45);
+    background: var(--color-header-panel);
     border: 1px solid var(--color-border);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    box-shadow: inset 0 1px 0 var(--color-header-inset);
   }
 
   .header__nav-divider {
@@ -243,7 +246,7 @@ const navRooms = site.nav.filter(
     font-size: clamp(0.78rem, 1.1vw, 0.9rem);
     line-height: 1.2;
     text-align: center;
-    background: rgba(255, 255, 255, 0.65);
+    background: var(--color-header-link-bg);
     border: 1px solid var(--color-border);
     border-radius: 999px;
     box-shadow: var(--shadow-sm);
@@ -263,7 +266,7 @@ const navRooms = site.nav.filter(
   .header__nav-list a.is-active {
     background: var(--color-accent);
     border-color: var(--color-accent);
-    color: #fff;
+    color: var(--color-on-accent);
   }
 
   .header__toggle {
