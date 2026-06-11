@@ -27,7 +27,7 @@
     "pages": {
       "despre": {
         "title": "Despre noi — fabrică mobilă la comandă",
-        "description": "Peste 30 de ani în mobilă la comandă din lemn masiv, PAL și MDF. Decorao, Târgoviște — montaj în București, Ilfov (Buftea, Voluntari, Otopeni), Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița: Ploiești, Pitești, Giurgiu, Alexandria."
+        "description": "Peste 30 de ani de mobilier la comandă din lemn masiv, PAL și MDF vopsit. Fabrică Decorao în Târgoviște — măsurători, producție și montaj în București, Ilfov, Dâmbovița și județele învecinate."
       },
       "materiale": {
         "title": "Materiale mobilă la comandă — MDF, PAL Egger, lemn masiv",
@@ -121,10 +121,34 @@
   "about": {
     "title": "Fabrică de mobilă în Târgoviște",
     "paragraphs": [
-      "De peste 30 de ani, transformăm materia primă în mobilier care face parte din viața de zi cu zi a clienților noștri.",
-      "De la căldura și eleganța lemnului masiv, la versatilitatea PAL-ului și finisajele moderne ale MDF-ului vopsit, fiecare proiect este realizat cu grijă, atenție la detalii și respect pentru calitate.",
-      "Ne ocupăm de întregul proces, de la măsurători și proiectare, până la producție și montaj, pentru ca fiecare piesă să se integreze perfect în spațiul pentru care a fost creată.",
-      "Fie că este vorba despre o bucătărie, un living, o scară sau o piesă unică de mobilier, ne dorim ca fiecare creație să îmbine frumusețea, funcționalitatea și durabilitatea, pentru a fi apreciată mulți ani de acum înainte."
+      "De peste 30 de ani, realizăm mobilier la comandă din lemn masiv, PAL și MDF vopsit. Fiecare proiect începe cu măsurători atente, continuă în atelierul nostru din Târgoviște și se încheie prin montaj profesionist la domiciliul clientului. Astfel, controlăm fiecare etapă a procesului și ne asigurăm că mobilierul se potrivește perfect spațiului pentru care a fost creat."
+    ]
+  },
+  "howWeWork": {
+    "title": "Cum lucrăm",
+    "tagline": "Măsurăm. Proiectăm. Producem. Montăm.",
+    "closing": "De la prima discuție până la ultimul detaliu montat, gestionăm întregul proces pentru a oferi mobilier realizat pe comandă, adaptat perfect fiecărui spațiu.",
+    "steps": [
+      {
+        "icon": "📏",
+        "title": "Măsurători",
+        "text": "Venim la locație pentru a analiza spațiul și pentru a efectua măsurători precise. Astfel, mobilierul este proiectat perfect pentru dimensiunile și particularitățile fiecărei încăperi."
+      },
+      {
+        "icon": "✏️",
+        "title": "Proiectare",
+        "text": "Transformăm ideile și nevoile tale într-un proiect personalizat, alegând împreună materialele, finisajele și detaliile care definesc produsul final."
+      },
+      {
+        "icon": "🏭",
+        "title": "Producție",
+        "text": "Mobilierul este realizat în atelierul nostru din Târgoviște, folosind lemn masiv, PAL și MDF vopsit, cu atenție la fiecare detaliu și la calitatea execuției."
+      },
+      {
+        "icon": "🔧",
+        "title": "Montaj",
+        "text": "Asigurăm transportul și montajul profesional, astfel încât fiecare piesă să fie instalată corect și să se integreze perfect în spațiul destinat."
+      }
     ]
   },
   "rooms": [

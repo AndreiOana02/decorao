@@ -24,8 +24,21 @@ const { galerieByRoom } = Astro.props;
           <li>
             <a class="category-grid__card" href={navHref(room.id)}>
               {thumb ? (
-                <span class="category-grid__media">
-                  <img src={thumb.src} alt="" width="400" height="300" loading="lazy" decoding="async" />
+                <span
+                  class:list={[
+                    'category-grid__media',
+                    thumb.orientation === 'portrait' && 'category-grid__media--portrait',
+                    thumb.orientation === 'square' && 'category-grid__media--square',
+                  ]}
+                >
+                  <img
+                    src={thumb.src}
+                    alt={thumb.title}
+                    width="400"
+                    height="300"
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </span>
               ) : (
                 <span class="category-grid__media category-grid__media--empty" />
@@ -57,6 +70,7 @@ const { galerieByRoom } = Astro.props;
     list-style: none;
     margin: 0;
     padding: 0;
+    align-items: start;
   }
 
   .category-grid__card {
@@ -79,10 +93,20 @@ const { galerieByRoom } = Astro.props;
   }
 
   .category-grid__media {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     aspect-ratio: 4 / 3;
     overflow: hidden;
     background: var(--color-elevated);
+  }
+
+  .category-grid__media--portrait {
+    aspect-ratio: 3 / 4;
+  }
+
+  .category-grid__media--square {
+    aspect-ratio: 1 / 1;
   }
 
   .category-grid__media--empty {
@@ -92,7 +116,7 @@ const { galerieByRoom } = Astro.props;
   .category-grid__media img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
   }
 
