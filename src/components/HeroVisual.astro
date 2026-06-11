@@ -19,14 +19,19 @@ const showCounter = slides.length > 14;
   data-hero-carousel
   data-slides={JSON.stringify(slides)}
 >
-  <div
-    class="hero-visual__frame"
-    data-hero-frame
-    tabindex="0"
-    role="region"
-    aria-roledescription="carusel"
-    aria-label="Imagini prezentare — glisează stânga/dreapta"
-  >
+  <div class="hero-visual__slot">
+    <div
+      class:list={[
+        'hero-visual__frame',
+        `hero-visual__frame--${slides[0].orientation ?? 'landscape'}`,
+        { 'hero-visual__frame--contain': slides[0].fit === 'contain' },
+      ]}
+      data-hero-frame
+      tabindex="-1"
+      role="region"
+      aria-roledescription="carusel"
+      aria-label="Imagini prezentare — glisează stânga/dreapta"
+    >
     <figure class="hero-visual__slide is-active">
       <img
         src={slides[0].src}
@@ -69,6 +74,7 @@ const showCounter = slides.length > 14;
       </p>
     )}
   </div>
+  </div>
   {slides.length > 1 && (
     <p class="hero-visual__caption" data-hero-caption>
       {slides[0].title}
@@ -83,29 +89,46 @@ const showCounter = slides.length > 14;
     margin: 0 auto;
   }
 
+  /* Slot fix — pagina nu sare; conținutul se adaptează în interior */
+  .hero-visual__slot {
+    width: 100%;
+    height: min(22rem, 52vh);
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .hero-visual__frame {
     position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
     border-radius: calc(var(--radius) * 1.5);
     overflow: hidden;
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-lg);
-    aspect-ratio: 4 / 3;
-    max-height: min(22rem, 52vh);
-    max-width: 100%;
-    width: 100%;
-    margin-inline: auto;
     background: #f3efe8;
-    transition: aspect-ratio 0.25s ease, max-height 0.25s ease;
-  }
-
-  .hero-visual__frame--portrait {
-    aspect-ratio: 3 / 4;
-    max-height: min(26rem, 58vh);
-    max-width: 20rem;
     touch-action: pan-y pinch-zoom;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
+  }
+
+  .hero-visual__frame--portrait {
+    width: auto;
+    max-width: min(16rem, 72%);
+    aspect-ratio: 3 / 4;
+    height: 100%;
+    max-height: 100%;
+  }
+
+  .hero-visual__frame--square {
+    width: auto;
+    max-width: min(18rem, 78%);
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-height: 100%;
   }
 
   .hero-visual__frame.is-dragging {
@@ -215,10 +238,12 @@ const showCounter = slides.length > 14;
 
   .hero-visual__caption {
     margin: 0.75rem 0 0;
+    min-height: 2.75em;
     font-size: 0.88rem;
     color: var(--color-muted);
     text-align: center;
     font-style: italic;
+    line-height: 1.4;
   }
 </style>
 
@@ -227,7 +252,12 @@ const showCounter = slides.length > 14;
     const root = document.querySelector('[data-hero-carousel]');
     if (!root || root.hasAttribute('data-hero-ready')) return;
 
-    type Slide = { src: string; title: string; fit?: string };
+    type Slide = {
+      src: string;
+      title: string;
+      fit?: 'cover' | 'contain';
+      orientation?: 'portrait' | 'landscape' | 'square';
+    };
     let slides: Slide[] = [];
     try {
       slides = JSON.parse(root.getAttribute('data-slides') ?? '[]') as Slide[];
@@ -259,12 +289,16 @@ const showCounter = slides.length > 14;
       new Image().src = s.src;
     }
 
-    function updateFrameLayout() {
-      const slide = slides[current];
-      const portrait =
-        slide?.fit === 'contain' ||
-        (img.naturalWidth > 0 && img.naturalHeight > img.naturalWidth);
-      frame.classList.toggle('hero-visual__frame--portrait', portrait);
+    function applySlideLayout(slide: Slide) {
+      const orient = slide.orientation ?? 'landscape';
+      frame.classList.remove(
+        'hero-visual__frame--portrait',
+        'hero-visual__frame--landscape',
+        'hero-visual__frame--square',
+        'hero-visual__frame--contain'
+      );
+      frame.classList.add(`hero-visual__frame--${orient}`);
+      if (slide.fit === 'contain') frame.classList.add('hero-visual__frame--contain');
     }
 
     function goTo(index: number) {
@@ -272,8 +306,7 @@ const showCounter = slides.length > 14;
       const slide = slides[current];
       img.src = slide.src;
       img.alt = slide.title;
-      img.onload = () => updateFrameLayout();
-      if (img.complete) updateFrameLayout();
+      applySlideLayout(slide);
       dots.forEach((el, i) => {
         el.classList.toggle('is-active', i === current);
         el.setAttribute('aria-selected', String(i === current));
@@ -304,8 +337,14 @@ const showCounter = slides.length > 14;
       startAutoplay();
     }
 
-    btnPrev?.addEventListener('click', () => bump(-1));
-    btnNext?.addEventListener('click', () => bump(1));
+    btnPrev?.addEventListener('click', (e) => {
+      e.preventDefault();
+      bump(-1);
+    });
+    btnNext?.addEventListener('click', (e) => {
+      e.preventDefault();
+      bump(1);
+    });
 
     frame.addEventListener(
       'touchstart',

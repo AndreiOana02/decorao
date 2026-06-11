@@ -1,10 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import imageSize from 'image-size';
+
+export type GalerieOrientation = 'portrait' | 'landscape' | 'square';
 
 export type GalerieItem = {
   src: string;
   title: string;
   fit?: 'cover' | 'contain';
+  orientation?: GalerieOrientation;
 };
 
 const IMAGE_EXT = /\.(jpe?g|png|webp|avif)$/i;
@@ -47,6 +51,24 @@ function loadCaptions(): Record<string, CaptionEntry> {
   }
 }
 
+function getOrientation(filePath: string): GalerieOrientation {
+  try {
+    const dim = imageSize(filePath);
+    if (!dim.width || !dim.height) return 'landscape';
+    const ratio = dim.width / dim.height;
+    if (ratio < 0.92) return 'portrait';
+    if (ratio > 1.08) return 'landscape';
+    return 'square';
+  } catch {
+    return 'landscape';
+  }
+}
+
+function resolveFit(override?: 'cover' | 'contain'): 'cover' | 'contain' {
+  if (override) return override;
+  return 'contain';
+}
+
 function listImagesInDir(
   dir: string,
   urlPrefix: string,
@@ -60,10 +82,13 @@ function listImagesInDir(
     .map((file) => {
       const key = urlPrefix ? `${urlPrefix}/${file}` : file;
       const meta = captions[key] ?? captions[file];
+      const orientation = getOrientation(path.join(dir, file));
+      const fit = resolveFit(meta?.fit);
       return {
         src: `/galerie/${key}`,
         title: meta?.title ?? titleFromFilename(file),
-        fit: meta?.fit,
+        fit,
+        orientation,
       };
     });
 }

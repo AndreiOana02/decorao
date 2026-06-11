@@ -10,6 +10,7 @@
     "preview": "astro preview --open"
   },
   "dependencies": {
-    "astro": "^5.7.0"
+    "astro": "^5.7.0",
+    "image-size": "^2.0.2"
   }
 }

@@ -23,7 +23,6 @@ interface Props {
 
 
 const { id, title, intro, features, images, altBg = false } = Astro.props;
-const galleryFit = id === 'usi' || id === 'baie';
 
 ---
 
@@ -53,7 +52,7 @@ const galleryFit = id === 'usi' || id === 'baie';
 
     {images.length > 0 ? (
 
-      <div class:list={['gallery', { 'gallery--fit': galleryFit }]}>
+      <div class="gallery">
 
         {images.map((item) => (
 
@@ -63,7 +62,8 @@ const galleryFit = id === 'usi' || id === 'baie';
               type="button"
               class:list={[
                 'gallery__trigger',
-                { 'gallery__trigger--contain': item.fit === 'contain' || galleryFit },
+                `gallery__trigger--${item.orientation ?? 'landscape'}`,
+                { 'gallery__trigger--contain': item.fit === 'contain' },
               ]}
               data-lightbox
               data-src={item.src}
@@ -209,6 +209,8 @@ const galleryFit = id === 'usi' || id === 'baie';
 
     min-width: 0;
 
+    align-items: start;
+
   }
 
   @media (min-width: 640px) {
@@ -239,10 +241,6 @@ const galleryFit = id === 'usi' || id === 'baie';
 
       gap: 0.85rem;
 
-    }
-
-    .gallery--fit .gallery__trigger--contain img {
-      max-height: 280px;
     }
 
   }
@@ -287,59 +285,35 @@ const galleryFit = id === 'usi' || id === 'baie';
 
     width: 100%;
 
+    aspect-ratio: 4 / 3;
+
+    overflow: hidden;
+
     padding: 0;
 
     border: none;
 
-    background: none;
+    background: #f3efe8;
 
     cursor: zoom-in;
 
   }
 
+  .gallery__trigger--portrait {
+    aspect-ratio: 3 / 4;
+  }
 
+  .gallery__trigger--square {
+    aspect-ratio: 1 / 1;
+  }
 
   .gallery__trigger img {
     width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
+    height: 100%;
+    object-fit: contain;
+    display: block;
     transition: transform 0.35s ease;
   }
-
-  .gallery--fit {
-    gap: 1.15rem;
-  }
-
-  @media (min-width: 640px) {
-
-    .gallery--fit {
-      grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr));
-    }
-
-  }
-
-  .gallery--fit .gallery__item {
-    border-radius: 10px;
-  }
-
-  .gallery__trigger--contain img {
-    width: 100%;
-    height: auto;
-    max-height: 22rem;
-    aspect-ratio: auto;
-    object-fit: contain;
-    background: #f3efe8;
-  }
-
-  .gallery--fit .gallery__trigger--contain img {
-    max-height: 240px;
-  }
-
-  .gallery--fit .gallery__item:hover .gallery__trigger img {
-    transform: none;
-  }
-
-
 
   .gallery__item:hover .gallery__trigger img {
 
