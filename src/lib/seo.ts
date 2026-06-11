@@ -54,6 +54,20 @@ export function getServiceAreaJsonLd() {
   ]);
 }
 
+export function organizationJsonLd() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: site.brand,
+    alternateName: ['Decorao Târgoviște', site.domain, 'decorao.ro'],
+    url: `${BASE}/`,
+    logo: `${BASE}/sigla.svg`,
+    email: site.email,
+    telephone: site.phoneTel,
+    sameAs: site.social.map((s) => s.url),
+  };
+}
+
 export function localBusinessJsonLd() {
   return {
     '@context': 'https://schema.org',
@@ -103,6 +117,7 @@ export function webSiteJsonLd() {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: site.brand,
+    alternateName: site.domain,
     url: `${BASE}/`,
     description: site.seo.homeDescription,
     inLanguage: 'ro-RO',

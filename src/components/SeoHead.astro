@@ -8,6 +8,7 @@ import {
   buildPageTitle,
   jsonLdScript,
   localBusinessJsonLd,
+  organizationJsonLd,
   webSiteJsonLd,
 } from '../lib/seo';
 import site from '../data/site.json';
@@ -29,15 +30,23 @@ const canonical = absoluteUrl(path);
 const imageUrl = buildOgImage(ogImage);
 
 const structuredData = isHome
-  ? [localBusinessJsonLd(), webSiteJsonLd()]
+  ? [organizationJsonLd(), localBusinessJsonLd(), webSiteJsonLd()]
   : breadcrumbs.length
     ? [breadcrumbJsonLd(breadcrumbs)]
     : [];
+
+const gscVerification = site.seo.googleSearchConsoleVerification?.trim();
 ---
 
 <meta name="description" content={pageDesc} />
 <meta name="robots" content="index, follow, max-image-preview:large" />
 <meta name="author" content={site.brand} />
+<meta name="application-name" content={site.brand} />
+{gscVerification && <meta name="google-site-verification" content={gscVerification} />}
+
+{site.social.map((profile) => (
+  <link rel="me" href={profile.url} />
+))}
 <meta name="geo.region" content={site.seo.geoRegion} />
 <meta name="geo.placename" content={site.seo.geoPlacename} />
 
