@@ -10,4 +10,4 @@ export function isNavActive(pathname: string, id: string): boolean {
   return path === href;
 }
 
-export const SITE_PAGE_IDS = ['despre', 'materiale', 'contact'] as const;
+export const SITE_PAGE_IDS = ['despre', 'materiale', 'configurator', 'contact'] as const;

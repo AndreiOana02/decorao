@@ -1,0 +1,115 @@
+{
+  "title": "Proiectează-ți mobila",
+  "intro": "Alege camera, materialele și finisajele — la final primești un rezumat pe care îl trimiți direct către fabrică pentru ofertă personalizată.",
+  "steps": [
+    { "id": "room", "label": "Camera" },
+    { "id": "material", "label": "Materiale" },
+    { "id": "finish", "label": "Finisaje" },
+    { "id": "dimensions", "label": "Dimensiuni" },
+    { "id": "extras", "label": "Detalii" },
+    { "id": "summary", "label": "Rezumat" }
+  ],
+  "materials": [
+    {
+      "id": "mdf",
+      "label": "MDF vopsit",
+      "description": "Corpuri și fronturi vopsite — finisaj mat sau lucios, culori la alegere."
+    },
+    {
+      "id": "pal",
+      "label": "PAL Egger",
+      "description": "Decor premium Egger — texturi woodgrain și culori moderne."
+    },
+    {
+      "id": "lemn",
+      "label": "Lemn masiv",
+      "description": "Blaturi, accente, uși sau scări din lemn masiv — aspect natural."
+    },
+    {
+      "id": "mix",
+      "label": "Combinație",
+      "description": "Ex.: corpuri PAL Egger + blat lemn masiv sau accente din lemn."
+    }
+  ],
+  "finishes": [
+    { "id": "mat", "label": "Mat" },
+    { "id": "lucios", "label": "Lucios" },
+    { "id": "rustic", "label": "Rustic / ulei" }
+  ],
+  "colors": [
+    { "id": "alb", "label": "Alb", "hex": "#f5f3ef" },
+    { "id": "bej", "label": "Bej", "hex": "#d4c4a8" },
+    { "id": "gri", "label": "Gri", "hex": "#8a8580" },
+    { "id": "antracit", "label": "Antracit", "hex": "#3d3a36" },
+    { "id": "nuc", "label": "Nuc", "hex": "#5c4033" },
+    { "id": "stejar", "label": "Stejar natur", "hex": "#b8956c" },
+    { "id": "verde", "label": "Verde închis", "hex": "#3d4f3d" },
+    { "id": "albastru", "label": "Albastru", "hex": "#4a5d73" }
+  ],
+  "roomExtras": {
+    "bucatarii": {
+      "label": "Bucătărie",
+      "options": [
+        { "id": "layout-l", "label": "Layout în L" },
+        { "id": "layout-u", "label": "Layout în U" },
+        { "id": "layout-line", "label": "Linie dreaptă" },
+        { "id": "insula", "label": "Insulă centrală" },
+        { "id": "blat-lemn", "label": "Blat lemn masiv" },
+        { "id": "blat-egger", "label": "Blat premium Egger" },
+        { "id": "led", "label": "Iluminare LED" }
+      ],
+      "dimensionHint": "Lățime perete principal (cm), înălțime tavan (cm)"
+    },
+    "dormitor": {
+      "label": "Dormitor",
+      "options": [
+        { "id": "dulap", "label": "Dulap cu uși batante" },
+        { "id": "culisante", "label": "Uși culisante" },
+        { "id": "walkin", "label": "Dressing walk-in" },
+        { "id": "pat", "label": "Pat cu sertare" },
+        { "id": "organizare", "label": "Sertare și organizare interioară" }
+      ],
+      "dimensionHint": "Lățime perete (cm), înălțime (cm), adâncime (cm)"
+    },
+    "baie": {
+      "label": "Baie",
+      "options": [
+        { "id": "suspendat", "label": "Mobilier suspendat" },
+        { "id": "picior", "label": "Mobilier pe picior" },
+        { "id": "oglinda", "label": "Oglindă cu dulap" },
+        { "id": "masina", "label": "Spațiu mașină de spălat" }
+      ],
+      "dimensionHint": "Lățime disponibilă (cm), înălțime (cm)"
+    },
+    "living": {
+      "label": "Living",
+      "options": [
+        { "id": "perete-tv", "label": "Perete TV" },
+        { "id": "biblioteca", "label": "Bibliotecă" },
+        { "id": "vitrina", "label": "Vitrină / comodă" },
+        { "id": "accent-lemn", "label": "Accente lemn masiv" }
+      ],
+      "dimensionHint": "Lățime perete (cm), înălțime (cm)"
+    },
+    "usi": {
+      "label": "Uși interioare",
+      "options": [
+        { "id": "batante", "label": "Uși batante" },
+        { "id": "culisante-usi", "label": "Uși culisante" },
+        { "id": "geam", "label": "Cu geam" },
+        { "id": "tocaje", "label": "Tocaje la comandă" }
+      ],
+      "dimensionHint": "Număr uși, lățime x înălțime per ușă (cm)"
+    },
+    "scari": {
+      "label": "Scări",
+      "options": [
+        { "id": "trepte", "label": "Trepte lemn masiv" },
+        { "id": "contratrepte", "label": "Contratrepte" },
+        { "id": "mana", "label": "Mână curentă lemn masiv" },
+        { "id": "lac", "label": "Finisaj lac" }
+      ],
+      "dimensionHint": "Număr trepte, lățime scară (cm)"
+    }
+  }
+}

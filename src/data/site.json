@@ -37,6 +37,10 @@
       "contact": {
         "title": "Contact mobilă la comandă Târgoviște, București, Ilfov",
         "description": "Ofertă mobilă la comandă — Decorao, Târgoviște. Sună pentru bucătării, dormitoare, uși și scări. Acoperim București, Ilfov (Buftea, Voluntari, Otopeni), Dâmbovița, Prahova, Argeș, Giurgiu, Teleorman, Ialomița."
+      },
+      "configurator": {
+        "title": "Configurator mobilă la comandă",
+        "description": "Proiectează-ți mobila online — alege camera, materialele MDF, PAL Egger sau lemn masiv, finisajele și trimite cererea de ofertă către Decorao, Târgoviște."
       }
     },
     "rooms": {
@@ -77,6 +81,7 @@
     { "id": "acasa", "label": "Acasă" },
     { "id": "despre", "label": "Despre" },
     { "id": "materiale", "label": "Materiale" },
+    { "id": "configurator", "label": "Configurator" },
     { "id": "bucatarii", "label": "Bucătării" },
     { "id": "dormitor", "label": "Dormitor" },
     { "id": "baie", "label": "Baie" },
