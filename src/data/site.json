@@ -1,6 +1,6 @@
 {
   "brand": "Decorao",
-  "tagline": "Mobilă la comandă — Vulcana-Pandele, Dâmbovița",
+  "tagline": "Mobilă la comandă — Târgoviște, Dâmbovița",
   "hero": {
     "panelImage": "/galerie/bucatarii/bucatarie-03.png"
   },
@@ -9,8 +9,8 @@
   "phone": "0726 051 045",
   "phoneTel": "+40726051045",
   "email": "ciocoiurebeca@yahoo.com",
-  "address": "Strada Vasile Ciocoiu nr. 9, Vulcana-Pandele, județul Dâmbovița",
-  "mapsQuery": "Strada Vasile Ciocoiu 9, Vulcana-Pandele, Dambovita, Romania",
+  "address": "Târgoviște, Dâmbovița",
+  "mapsQuery": "Targoviste, Dambovita, Romania",
   "hours": "Luni–Vineri: 08:00–17:00",
   "nav": [
     { "id": "acasa", "label": "Acasă" },
@@ -54,12 +54,12 @@
       },
       {
         "title": "Dâmbovița și împrejurimi",
-        "text": "Fabrică în Vulcana-Pandele — măsurători, producție și montaj în județ."
+        "text": "Fabrică în Târgoviște — măsurători, producție și montaj în județ."
       }
     ]
   },
   "about": {
-    "title": "Fabrică de mobilă în Vulcana-Pandele",
+    "title": "Fabrică de mobilă în Târgoviște",
     "paragraphs": [
       "Decorao produce mobilă la comandă — bucătării, dormitoare, băi, livinguri, uși interioare și scări.",
       "Lucrăm cu MDF vopsit și PAL Egger pentru corpuri și uși, lemn masiv pentru blaturi și scări, plus montaj la locație în Dâmbovița și împrejurimi."
@@ -161,7 +161,7 @@
         "description": "MDF vopsit și PAL Egger pentru corpuri și uși, lemn masiv pentru blaturi, scări și accente."
       },
       {
-        "title": "Fabrică în Vulcana-Pandele",
+        "title": "Fabrică în Târgoviște",
         "description": "Producție locală, comunicare directă și termene clare — fără lanțuri complicate de distribuție."
       },
       {
