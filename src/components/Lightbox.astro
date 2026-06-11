@@ -1,0 +1,52 @@
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Imagine mărită" hidden>
+  <button type="button" class="lightbox__close" aria-label="Închide">×</button>
+  <img class="lightbox__img" src="" alt="" />
+  <p class="lightbox__caption"></p>
+</div>
+
+<script>
+  function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox || lightbox.hasAttribute('data-ready')) return;
+    lightbox.setAttribute('data-ready', '');
+
+    const lbImg = lightbox.querySelector('.lightbox__img') as HTMLImageElement | null;
+    const lbCap = lightbox.querySelector('.lightbox__caption');
+    const lbClose = lightbox.querySelector('.lightbox__close');
+
+    function openLightbox(src: string, alt: string) {
+      if (!lbImg) return;
+      lbImg.src = src;
+      lbImg.alt = alt;
+      if (lbCap) lbCap.textContent = alt;
+      lightbox.removeAttribute('hidden');
+      lightbox.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('hidden', '');
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('[data-lightbox]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const src = (btn as HTMLElement).dataset.src;
+        const alt = (btn as HTMLElement).dataset.alt ?? '';
+        if (src) openLightbox(src, alt);
+      });
+    });
+
+    lbClose?.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
+  }
+
+  initLightbox();
+  document.addEventListener('astro:page-load', initLightbox);
+</script>

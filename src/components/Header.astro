@@ -1,8 +1,15 @@
 ---
 import site from '../data/site.json';
+import { isNavActive, navHref } from '../lib/nav';
 
 import Logo from './Logo.astro';
 import SocialLinks from './SocialLinks.astro';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
 
 const navMain = site.nav.filter((item) =>
   ['acasa', 'despre', 'materiale', 'contact'].includes(item.id)
@@ -14,7 +21,7 @@ const navRooms = site.nav.filter(
 
 <header class="header">
   <div class="container container--wide header__bar">
-    <a class="header__brand" href="#acasa">
+    <a class="header__brand" href="/">
       <Logo />
     </a>
 
@@ -33,7 +40,7 @@ const navRooms = site.nav.filter(
 
       <div class="header__actions">
         <SocialLinks variant="icons" />
-        <a class="btn btn--primary header__cta" href="#contact">Cere ofertă</a>
+        <a class="btn btn--primary header__cta" href="/contact">Cere ofertă</a>
       </div>
     </div>
   </div>
@@ -45,7 +52,12 @@ const navRooms = site.nav.filter(
         <ul class="header__nav-list header__nav-list--site">
           {navMain.map((item) => (
             <li>
-              <a href={`#${item.id}`} data-nav={item.id}>{item.label}</a>
+              <a
+                href={navHref(item.id)}
+                class:list={{ 'is-active': isNavActive(currentPath, item.id) }}
+              >
+                {item.label}
+              </a>
             </li>
           ))}
         </ul>
@@ -58,7 +70,12 @@ const navRooms = site.nav.filter(
         <ul class="header__nav-list header__nav-list--rooms">
           {navRooms.map((item) => (
             <li>
-              <a href={`#${item.id}`} data-nav={item.id}>{item.label}</a>
+              <a
+                href={navHref(item.id)}
+                class:list={{ 'is-active': isNavActive(currentPath, item.id) }}
+              >
+                {item.label}
+              </a>
             </li>
           ))}
         </ul>
@@ -400,30 +417,4 @@ const navRooms = site.nav.filter(
       toggle?.setAttribute('aria-label', 'Deschide meniul');
     });
   });
-
-  const navLinks = [...document.querySelectorAll('[data-nav]')];
-  const sections = navLinks
-    .map((link) => {
-      const id = (link as HTMLElement).dataset.nav;
-      const el = id ? document.getElementById(id) : null;
-      return el ? { id, el, link } : null;
-    })
-    .filter(Boolean) as { id: string; el: HTMLElement; link: Element }[];
-
-  if (sections.length > 0 && 'IntersectionObserver' in window) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0))[0];
-        if (!visible) return;
-        const id = visible.target.id;
-        navLinks.forEach((link) => {
-          link.classList.toggle('is-active', (link as HTMLElement).dataset.nav === id);
-        });
-      },
-      { rootMargin: '-40% 0px -45% 0px', threshold: [0, 0.15, 0.4] }
-    );
-    sections.forEach(({ el }) => observer.observe(el));
-  }
 </script>

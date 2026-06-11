@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+}
+
+const { title, description, path } = Astro.props;
+const currentPath = Astro.url.pathname;
+---
+
+<Layout title={title} description={description} path={path}>
+  <Header currentPath={currentPath} />
+  <main>
+    <slot />
+  </main>
+  <Footer />
+</Layout>

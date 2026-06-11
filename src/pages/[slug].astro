@@ -1,0 +1,68 @@
+---
+import PageShell from '../components/PageShell.astro';
+import RoomSection from '../components/RoomSection.astro';
+import WhyDecorao from '../components/WhyDecorao.astro';
+import MaterialsShowcase from '../components/MaterialsShowcase.astro';
+import ContactSection from '../components/ContactSection.astro';
+import site from '../data/site.json';
+import { SITE_PAGE_IDS } from '../lib/nav';
+import { getGalerieForRoom } from '../lib/galerie';
+
+export function getStaticPaths() {
+  const pages = SITE_PAGE_IDS.map((slug) => ({ params: { slug } }));
+  const rooms = site.rooms.map((room) => ({ params: { slug: room.id } }));
+  return [...pages, ...rooms];
+}
+
+const { slug } = Astro.params;
+const room = site.rooms.find((r) => r.id === slug);
+const pagePath = `/${slug}`;
+---
+
+{slug === 'despre' && (
+  <PageShell title="Despre noi" description={site.about.paragraphs[0]} path={pagePath}>
+    <section class="section section--alt">
+      <div class="container container--wide about">
+        <p class="section__eyebrow">Despre noi</p>
+        <h1 class="section__title">{site.about.title}</h1>
+        {site.about.paragraphs.map((p) => (
+          <p class="about__p">{p}</p>
+        ))}
+      </div>
+    </section>
+    <WhyDecorao />
+  </PageShell>
+)}
+
+{slug === 'materiale' && (
+  <PageShell title={site.materials.title} description={site.materials.intro} path={pagePath}>
+    <MaterialsShowcase />
+  </PageShell>
+)}
+
+{slug === 'contact' && (
+  <PageShell title="Contact" description="Contact Decorao — ofertă mobilă la comandă." path={pagePath}>
+    <ContactSection />
+  </PageShell>
+)}
+
+{room && (
+  <PageShell title={room.title} description={room.intro} path={pagePath}>
+    <RoomSection
+      id={room.id}
+      title={room.title}
+      intro={room.intro}
+      features={room.features}
+      images={getGalerieForRoom(room.id)}
+    />
+  </PageShell>
+)}
+
+<style>
+  .about__p {
+    color: var(--color-muted);
+    margin: 0 0 0.85rem;
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+</style>

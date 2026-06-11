@@ -1,5 +1,6 @@
 ---
 import site from '../data/site.json';
+import { navHref } from '../lib/nav';
 import Logo from './Logo.astro';
 import SocialLinks from './SocialLinks.astro';
 
@@ -13,7 +14,7 @@ const navLinks = site.nav.filter((item) => item.id !== 'contact' && item.id !== 
   <div class="container container--wide">
     <div class="footer__main">
       <div class="footer__brand">
-        <a href="#acasa" class="footer__logo-link">
+        <a href="/" class="footer__logo-link">
           <Logo />
         </a>
         <p class="footer__tagline">Mobilă la comandă · Vulcana-Pandele</p>
@@ -28,22 +29,22 @@ const navLinks = site.nav.filter((item) => item.id !== 'contact' && item.id !== 
           <a href={mapsUrl} target="_blank" rel="noopener noreferrer">{site.address}</a>
           <span class="footer__hours">{site.hours}</span>
         </div>
-        <a class="footer__cta" href="#contact">Cere ofertă</a>
+        <a class="footer__cta" href="/contact">Cere ofertă</a>
       </div>
     </div>
 
     <nav class="footer__nav" aria-label="Categorii și pagini">
       <p class="footer__heading footer__heading--nav">Navigare rapidă</p>
       <ul class="footer__nav-list">
-        <li><a href="#acasa">Acasă</a></li>
-        <li><a href="#despre">Despre</a></li>
-        <li><a href="#materiale">Materiale</a></li>
+        <li><a href="/">Acasă</a></li>
+        <li><a href="/despre">Despre</a></li>
+        <li><a href="/materiale">Materiale</a></li>
         {navLinks.map((item) => (
           <li>
-            <a href={`#${item.id}`}>{item.label}</a>
+            <a href={navHref(item.id)}>{item.label}</a>
           </li>
         ))}
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
     </nav>
 

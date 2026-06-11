@@ -1,0 +1,116 @@
+---
+import site from '../data/site.json';
+import { navHref } from '../lib/nav';
+import type { GalerieItem } from '../lib/galerie';
+
+interface Props {
+  galerieByRoom: Record<string, GalerieItem[]>;
+}
+
+const { galerieByRoom } = Astro.props;
+---
+
+<section class="section section--alt category-grid">
+  <div class="container container--wide">
+    <p class="section__eyebrow">Categorii</p>
+    <h2 class="section__title">Alege camera dorită</h2>
+    <p class="category-grid__intro">
+      Fiecare categorie are pagina proprie cu poze și detalii despre materiale și finisaje.
+    </p>
+    <ul class="category-grid__list">
+      {site.rooms.map((room) => {
+        const thumb = galerieByRoom[room.id]?.[0];
+        return (
+          <li>
+            <a class="category-grid__card" href={navHref(room.id)}>
+              {thumb ? (
+                <span class="category-grid__media">
+                  <img src={thumb.src} alt="" width="400" height="300" loading="lazy" decoding="async" />
+                </span>
+              ) : (
+                <span class="category-grid__media category-grid__media--empty" />
+              )}
+              <span class="category-grid__body">
+                <strong>{room.label}</strong>
+                <span>{room.title}</span>
+              </span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .category-grid__intro {
+    margin: 0 0 1.5rem;
+    max-width: 42rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+  }
+
+  .category-grid__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .category-grid__card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    border-radius: calc(var(--radius) + 2px);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .category-grid__card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+  }
+
+  .category-grid__media {
+    display: block;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: #f3efe8;
+  }
+
+  .category-grid__media--empty {
+    background: linear-gradient(135deg, #f3efe8, #e6ddd0);
+  }
+
+  .category-grid__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .category-grid__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.85rem 1rem 1rem;
+  }
+
+  .category-grid__body strong {
+    font-size: 1rem;
+    color: var(--color-text);
+  }
+
+  .category-grid__body span:last-child {
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    line-height: 1.35;
+  }
+</style>
